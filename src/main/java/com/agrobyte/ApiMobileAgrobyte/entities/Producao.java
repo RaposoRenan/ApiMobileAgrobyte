@@ -23,37 +23,35 @@ public class Producao {
 
     private int tempoPlantio;
 
-    // Quantidade total de produtos que foram plantados
+    // Quantidade total de produtos plantados
     private int quantidadePlantada;
 
-    // Quantidade realmente produzida após o plantio
-    private int quantidadeProduzida;
-
-    // Observações sobre o processo de produção (pode incluir detalhes sobre a produção ou perdas)
+    // Observações sobre a produção
     private String observacoes;
 
-    @OneToMany(mappedBy = "id.producao")
+    @OneToMany(mappedBy = "id.producao", cascade = CascadeType.ALL)
     private Set<InsumoProducao> insumos = new HashSet<>();
 
-    @OneToMany(mappedBy = "producao")
-    private Set<PerdaProducao> perdas = new HashSet<>();
+    @OneToOne(mappedBy = "producao", cascade = CascadeType.ALL)
+    private Colheita colheita;
 
     public Producao() {
     }
 
-    public Producao(String nomeProducao, Date dataEntrada, Date dataSaida, int tempoPlantio, int quantidadePlantada, int quantidadeProduzida) {
+    public Producao(String nomeProducao, Date dataEntrada, Date dataSaida, int tempoPlantio, int quantidadePlantada) {
         this.nomeProducao = nomeProducao;
         this.dataEntrada = dataEntrada;
         this.dataSaida = dataSaida;
         this.tempoPlantio = tempoPlantio;
         this.quantidadePlantada = quantidadePlantada;
-        this.quantidadeProduzida = quantidadeProduzida;
     }
 
-    // Métodos para calcular a quantidade final após perdas
+    // Método para obter a quantidade final para o estoque após a colheita
     public int getQuantidadeFinalParaEstoque() {
-        int totalPerdas = perdas.stream().mapToInt(PerdaProducao::getQuantidadePerdida).sum();
-        return this.quantidadeProduzida - totalPerdas;
+        if (colheita != null) {
+            return colheita.getQuantidadeFinalParaEstoque();
+        }
+        return 0; // Caso a colheita ainda não tenha ocorrido
     }
 
     public Long getId() {
@@ -102,14 +100,6 @@ public class Producao {
 
     public void setQuantidadePlantada(int quantidadePlantada) {
         this.quantidadePlantada = quantidadePlantada;
-    }
-
-    public int getQuantidadeProduzida() {
-        return quantidadeProduzida;
-    }
-
-    public void setQuantidadeProduzida(int quantidadeProduzida) {
-        this.quantidadeProduzida = quantidadeProduzida;
     }
 
     public String getObservacoes() {
