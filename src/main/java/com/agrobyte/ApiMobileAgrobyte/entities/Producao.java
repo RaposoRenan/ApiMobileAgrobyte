@@ -13,6 +13,8 @@ public class Producao {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    // quantidade esperada
+
     private String nomeProducao;
 
     @Temporal(TemporalType.DATE)
@@ -23,35 +25,21 @@ public class Producao {
 
     private int tempoPlantio;
 
-    // Quantidade total de produtos plantados
-    private int quantidadePlantada;
+    @Enumerated(EnumType.STRING)
+    private StatusProducao statusProducao;
 
-    // Observações sobre a produção
-    private String observacoes;
 
-    @OneToMany(mappedBy = "id.producao", cascade = CascadeType.ALL)
-    private Set<InsumoProducao> insumos = new HashSet<>();
-
-    @OneToOne(mappedBy = "producao", cascade = CascadeType.ALL)
-    private Colheita colheita;
+    @OneToMany(mappedBy = "producao")
+    private Set<Colheita> colheitas = new HashSet<>();
 
     public Producao() {
     }
 
-    public Producao(String nomeProducao, Date dataEntrada, Date dataSaida, int tempoPlantio, int quantidadePlantada) {
+    public Producao(String nomeProducao, Date dataEntrada, int tempoPlantio, StatusProducao statusProducao) {
         this.nomeProducao = nomeProducao;
         this.dataEntrada = dataEntrada;
-        this.dataSaida = dataSaida;
         this.tempoPlantio = tempoPlantio;
-        this.quantidadePlantada = quantidadePlantada;
-    }
-
-    // Método para obter a quantidade final para o estoque após a colheita
-    public int getQuantidadeFinalParaEstoque() {
-        if (colheita != null) {
-            return colheita.getQuantidadeFinalParaEstoque();
-        }
-        return 0; // Caso a colheita ainda não tenha ocorrido
+        this.statusProducao = statusProducao;
     }
 
     public Long getId() {
@@ -94,19 +82,11 @@ public class Producao {
         this.tempoPlantio = tempoPlantio;
     }
 
-    public int getQuantidadePlantada() {
-        return quantidadePlantada;
+    public StatusProducao getStatusProducao() {
+        return statusProducao;
     }
 
-    public void setQuantidadePlantada(int quantidadePlantada) {
-        this.quantidadePlantada = quantidadePlantada;
-    }
-
-    public String getObservacoes() {
-        return observacoes;
-    }
-
-    public void setObservacoes(String observacoes) {
-        this.observacoes = observacoes;
+    public void setStatusProducao(StatusProducao statusProducao) {
+        this.statusProducao = statusProducao;
     }
 }

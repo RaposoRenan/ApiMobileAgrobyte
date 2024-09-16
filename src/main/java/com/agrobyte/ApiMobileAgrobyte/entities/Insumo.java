@@ -8,7 +8,7 @@ public class Insumo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String nomeInsumo;
+    private String nome;
     private Double valorUnitario;
 
     public Insumo() {
@@ -16,7 +16,7 @@ public class Insumo {
 
     public Insumo(Long id, String nomeInsumo, Double valorUnitario) {
         this.id = id;
-        this.nomeInsumo = nomeInsumo;
+        this.nome = nomeInsumo;
         this.valorUnitario = valorUnitario;
     }
 
@@ -28,12 +28,12 @@ public class Insumo {
         this.id = id;
     }
 
-    public String getNomeInsumo() {
-        return nomeInsumo;
+    public String getNome() {
+        return nome;
     }
 
-    public void setNomeInsumo(String nomeInsumo) {
-        this.nomeInsumo = nomeInsumo;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public Double getValorUnitario() {
