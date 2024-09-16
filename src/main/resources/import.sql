@@ -9,16 +9,16 @@ INSERT INTO tb_insumo(nome, valor_unitario) VALUES ('Irrigação por Gotejamento
 INSERT INTO tb_insumo(nome, valor_unitario) VALUES ('Calcário', 55.00);
 INSERT INTO tb_insumo(nome, valor_unitario) VALUES ('Semente de Soja', 180.00);
 
-INSERT INTO tb_producao(nome_producao, data_entrada, tempo_plantio, status_producao) VALUES ('Milho Safra', '2024-01-01', 90, 'PLANTIO');
-INSERT INTO tb_producao(nome_producao, data_entrada, tempo_plantio, status_producao) VALUES ('Soja Safra', '2024-02-01', 120, 'PLANTIO');
-INSERT INTO tb_producao(nome_producao, data_entrada, tempo_plantio, status_producao) VALUES ('Trigo Safra', '2024-03-01', 100, 'EM_CRESCIMENTO');
-INSERT INTO tb_producao(nome_producao, data_entrada, tempo_plantio, status_producao) VALUES ('Arroz Safra', '2024-04-01', 80, 'PRONTO_PARA_COLHEITA');
-INSERT INTO tb_producao(nome_producao, data_entrada, tempo_plantio, status_producao) VALUES ('Café Safra', '2024-05-01', 150, 'PLANTIO');
-INSERT INTO tb_producao(nome_producao, data_entrada, tempo_plantio, status_producao) VALUES ('Feijão Safra', '2024-06-01', 110, 'EM_CRESCIMENTO');
-INSERT INTO tb_producao(nome_producao, data_entrada, tempo_plantio, status_producao) VALUES ('Cana-de-açúcar Safra', '2024-07-01', 160, 'PRONTO_PARA_COLHEITA');
-INSERT INTO tb_producao(nome_producao, data_entrada, tempo_plantio, status_producao) VALUES ('Batata Safra', '2024-08-01', 70, 'COLHIDO');
-INSERT INTO tb_producao(nome_producao, data_entrada, tempo_plantio, status_producao) VALUES ('Tomate Safra', '2024-09-01', 60, 'FINALIZADO');
-INSERT INTO tb_producao(nome_producao, data_entrada, tempo_plantio, status_producao) VALUES ('Alface Safra', '2024-10-01', 30, 'PLANTIO');
+INSERT INTO tb_producao(nome_producao, data_entrada, tempo_plantio, status_producao, quantidade_prevista) VALUES ('Milho Safra', '2024-01-01', 90, 'PLANTIO', 100);
+INSERT INTO tb_producao(nome_producao, data_entrada, tempo_plantio, status_producao, quantidade_prevista) VALUES ('Soja Safra', '2024-02-01', 120, 'PLANTIO', 150);
+INSERT INTO tb_producao(nome_producao, data_entrada, tempo_plantio, status_producao, quantidade_prevista) VALUES ('Trigo Safra', '2024-03-01', 100, 'EM_CRESCIMENTO', 200);
+INSERT INTO tb_producao(nome_producao, data_entrada, tempo_plantio, status_producao, quantidade_prevista) VALUES ('Arroz Safra', '2024-04-01', 80, 'PRONTO_PARA_COLHEITA', 200);
+INSERT INTO tb_producao(nome_producao, data_entrada, tempo_plantio, status_producao, quantidade_prevista) VALUES ('Café Safra', '2024-05-01', 150, 'PLANTIO', 1500);
+INSERT INTO tb_producao(nome_producao, data_entrada, tempo_plantio, status_producao, quantidade_prevista) VALUES ('Feijão Safra', '2024-06-01', 110, 'EM_CRESCIMENTO', 150);
+INSERT INTO tb_producao(nome_producao, data_entrada, tempo_plantio, status_producao, quantidade_prevista) VALUES ('Cana-de-açúcar Safra', '2024-07-01', 160, 'PRONTO_PARA_COLHEITA', 220);
+INSERT INTO tb_producao(nome_producao, data_entrada, tempo_plantio, status_producao, quantidade_prevista) VALUES ('Batata Safra', '2024-08-01', 70, 'COLHIDO',130);
+INSERT INTO tb_producao(nome_producao, data_entrada, tempo_plantio, status_producao, quantidade_prevista) VALUES ('Tomate Safra', '2024-09-01', 60, 'FINALIZADO', 210);
+INSERT INTO tb_producao(nome_producao, data_entrada, tempo_plantio, status_producao, quantidade_prevista) VALUES ('Alface Safra', '2024-10-01', 30, 'PLANTIO', 100);
 
 INSERT INTO tb_insumo_producao(insumo_id, producao_id, quantidade, data_saida) VALUES (1, 1, 50, '2024-01-15');
 INSERT INTO tb_insumo_producao(insumo_id, producao_id, quantidade, data_saida) VALUES (2, 1, 100, '2024-02-10');
@@ -31,8 +31,8 @@ INSERT INTO tb_insumo_producao(insumo_id, producao_id, quantidade, data_saida) V
 INSERT INTO tb_insumo_producao(insumo_id, producao_id, quantidade, data_saida) VALUES (9, 9, 140, '2024-09-05');
 INSERT INTO tb_insumo_producao(insumo_id, producao_id, quantidade, data_saida) VALUES (10, 10, 130, '2024-10-02');
 
-INSERT INTO tb_colheita(producao_id, quantidade_colhida, quantidade_perdida, resultado_colheita, tipo_perda) VALUES (1, 100, 5, 'EXCELENTE', 'PRAGAS');
 INSERT INTO tb_colheita(producao_id, quantidade_colhida, quantidade_perdida, resultado_colheita, tipo_perda) VALUES (2, 90, 10, 'BOM', 'DOENCAS');
+INSERT INTO tb_colheita(producao_id, quantidade_colhida, quantidade_perdida, resultado_colheita, tipo_perda) VALUES (1, 100, 5, 'EXCELENTE', 'PRAGAS');
 INSERT INTO tb_colheita(producao_id, quantidade_colhida, quantidade_perdida, resultado_colheita, tipo_perda) VALUES (3, 80, 20, 'REGULAR', 'CLIMA');
 INSERT INTO tb_colheita(producao_id, quantidade_colhida, quantidade_perdida, resultado_colheita, tipo_perda) VALUES (4, 95, 5, 'BOM', 'ERRO_HUMANO');
 INSERT INTO tb_colheita(producao_id, quantidade_colhida, quantidade_perdida, resultado_colheita, tipo_perda) VALUES (5, 70, 30, 'RUIM', 'OUTRO');

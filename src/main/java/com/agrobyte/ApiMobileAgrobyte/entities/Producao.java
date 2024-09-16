@@ -1,7 +1,7 @@
 package com.agrobyte.ApiMobileAgrobyte.entities;
 
 import jakarta.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,21 +13,18 @@ public class Producao {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // quantidade esperada
-
     private String nomeProducao;
 
-    @Temporal(TemporalType.DATE)
-    private Date dataEntrada;
+    private LocalDate dataEntrada;
 
-    @Temporal(TemporalType.DATE)
-    private Date dataSaida;
+    private LocalDate dataSaida;
 
     private int tempoPlantio;
 
+    private int quantidadePrevista;
+
     @Enumerated(EnumType.STRING)
     private StatusProducao statusProducao;
-
 
     @OneToMany(mappedBy = "producao")
     private Set<Colheita> colheitas = new HashSet<>();
@@ -35,12 +32,16 @@ public class Producao {
     public Producao() {
     }
 
-    public Producao(String nomeProducao, Date dataEntrada, int tempoPlantio, StatusProducao statusProducao) {
+    public Producao(String nomeProducao, LocalDate dataEntrada, LocalDate dataSaida, int tempoPlantio, StatusProducao statusProducao, int quantidadePrevista) {
         this.nomeProducao = nomeProducao;
         this.dataEntrada = dataEntrada;
+        this.dataSaida = dataSaida;
         this.tempoPlantio = tempoPlantio;
         this.statusProducao = statusProducao;
+        this.quantidadePrevista = quantidadePrevista;
     }
+
+    // Getters and Setters
 
     public Long getId() {
         return id;
@@ -58,19 +59,19 @@ public class Producao {
         this.nomeProducao = nomeProducao;
     }
 
-    public Date getDataEntrada() {
+    public LocalDate getDataEntrada() {
         return dataEntrada;
     }
 
-    public void setDataEntrada(Date dataEntrada) {
+    public void setDataEntrada(LocalDate dataEntrada) {
         this.dataEntrada = dataEntrada;
     }
 
-    public Date getDataSaida() {
+    public LocalDate getDataSaida() {
         return dataSaida;
     }
 
-    public void setDataSaida(Date dataSaida) {
+    public void setDataSaida(LocalDate dataSaida) {
         this.dataSaida = dataSaida;
     }
 
@@ -88,5 +89,21 @@ public class Producao {
 
     public void setStatusProducao(StatusProducao statusProducao) {
         this.statusProducao = statusProducao;
+    }
+
+    public int getQuantidadePrevista() {
+        return quantidadePrevista;
+    }
+
+    public void setQuantidadePrevista(int quantidadePrevista) {
+        this.quantidadePrevista = quantidadePrevista;
+    }
+
+    public Set<Colheita> getColheitas() {
+        return colheitas;
+    }
+
+    public void setColheitas(Set<Colheita> colheitas) {
+        this.colheitas = colheitas;
     }
 }
