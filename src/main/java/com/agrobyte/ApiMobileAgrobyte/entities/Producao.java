@@ -41,8 +41,6 @@ public class Producao {
         this.quantidadePrevista = quantidadePrevista;
     }
 
-    // Getters and Setters
-
     public Long getId() {
         return id;
     }
