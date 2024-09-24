@@ -5,6 +5,8 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
+import static com.agrobyte.ApiMobileAgrobyte.entities.StatusProducao.PLANTIO;
+
 @Entity
 @Table(name = "tb_producao")
 public class Producao {
@@ -25,9 +27,6 @@ public class Producao {
 
     @Enumerated(EnumType.STRING)
     private StatusProducao statusProducao;
-
-    @OneToMany(mappedBy = "producao")
-    private Set<Colheita> colheitas = new HashSet<>();
 
     public Producao() {
     }
@@ -95,13 +94,5 @@ public class Producao {
 
     public void setQuantidadePrevista(int quantidadePrevista) {
         this.quantidadePrevista = quantidadePrevista;
-    }
-
-    public Set<Colheita> getColheitas() {
-        return colheitas;
-    }
-
-    public void setColheitas(Set<Colheita> colheitas) {
-        this.colheitas = colheitas;
     }
 }

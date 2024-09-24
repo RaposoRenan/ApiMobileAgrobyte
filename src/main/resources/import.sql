@@ -30,14 +30,3 @@ INSERT INTO tb_insumo_producao(insumo_id, producao_id, quantidade, data_saida) V
 INSERT INTO tb_insumo_producao(insumo_id, producao_id, quantidade, data_saida) VALUES (8, 8, 220, '2024-08-10');
 INSERT INTO tb_insumo_producao(insumo_id, producao_id, quantidade, data_saida) VALUES (9, 9, 140, '2024-09-05');
 INSERT INTO tb_insumo_producao(insumo_id, producao_id, quantidade, data_saida) VALUES (10, 10, 130, '2024-10-02');
-
-INSERT INTO tb_colheita(producao_id, quantidade_colhida, quantidade_perdida, resultado_colheita, tipo_perda) VALUES (2, 90, 10, 'BOM', 'DOENCAS');
-INSERT INTO tb_colheita(producao_id, quantidade_colhida, quantidade_perdida, resultado_colheita, tipo_perda) VALUES (1, 100, 5, 'EXCELENTE', 'PRAGAS');
-INSERT INTO tb_colheita(producao_id, quantidade_colhida, quantidade_perdida, resultado_colheita, tipo_perda) VALUES (3, 80, 20, 'REGULAR', 'CLIMA');
-INSERT INTO tb_colheita(producao_id, quantidade_colhida, quantidade_perdida, resultado_colheita, tipo_perda) VALUES (4, 95, 5, 'BOM', 'ERRO_HUMANO');
-INSERT INTO tb_colheita(producao_id, quantidade_colhida, quantidade_perdida, resultado_colheita, tipo_perda) VALUES (5, 70, 30, 'RUIM', 'OUTRO');
-INSERT INTO tb_colheita(producao_id, quantidade_colhida, quantidade_perdida, resultado_colheita, tipo_perda) VALUES (6, 85, 15, 'EXCELENTE', 'DOENCAS');
-INSERT INTO tb_colheita(producao_id, quantidade_colhida, quantidade_perdida, resultado_colheita, tipo_perda) VALUES (7, 50, 50, 'PERDA_TOTAL', 'CLIMA');
-INSERT INTO tb_colheita(producao_id, quantidade_colhida, quantidade_perdida, resultado_colheita, tipo_perda) VALUES (8, 60, 40, 'REGULAR', 'PRAGAS');
-INSERT INTO tb_colheita(producao_id, quantidade_colhida, quantidade_perdida, resultado_colheita, tipo_perda) VALUES (9, 120, 10, 'EXCELENTE', 'ERRO_HUMANO');
-INSERT INTO tb_colheita(producao_id, quantidade_colhida, quantidade_perdida, resultado_colheita, tipo_perda) VALUES (10, 110, 20, 'BOM', 'OUTRO');
