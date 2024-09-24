@@ -2,10 +2,6 @@ package com.agrobyte.ApiMobileAgrobyte.entities;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
-
-import static com.agrobyte.ApiMobileAgrobyte.entities.StatusProducao.PLANTIO;
 
 @Entity
 @Table(name = "tb_producao")
@@ -19,8 +15,6 @@ public class Producao {
 
     private LocalDate dataEntrada;
 
-    private LocalDate dataSaida;
-
     private int tempoPlantio;
 
     private int quantidadePrevista;
@@ -28,13 +22,17 @@ public class Producao {
     @Enumerated(EnumType.STRING)
     private StatusProducao statusProducao;
 
+    // Relação one-to-one com a classe Colheita
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "colheita_id", referencedColumnName = "id")
+    private Colheita colheita;
+
     public Producao() {
     }
 
-    public Producao(String nomeProducao, LocalDate dataEntrada, LocalDate dataSaida, int tempoPlantio, StatusProducao statusProducao, int quantidadePrevista) {
+    public Producao(String nomeProducao, LocalDate dataEntrada, int tempoPlantio, StatusProducao statusProducao, int quantidadePrevista) {
         this.nomeProducao = nomeProducao;
         this.dataEntrada = dataEntrada;
-        this.dataSaida = dataSaida;
         this.tempoPlantio = tempoPlantio;
         this.statusProducao = statusProducao;
         this.quantidadePrevista = quantidadePrevista;
@@ -64,20 +62,20 @@ public class Producao {
         this.dataEntrada = dataEntrada;
     }
 
-    public LocalDate getDataSaida() {
-        return dataSaida;
-    }
-
-    public void setDataSaida(LocalDate dataSaida) {
-        this.dataSaida = dataSaida;
-    }
-
     public int getTempoPlantio() {
         return tempoPlantio;
     }
 
     public void setTempoPlantio(int tempoPlantio) {
         this.tempoPlantio = tempoPlantio;
+    }
+
+    public int getQuantidadePrevista() {
+        return quantidadePrevista;
+    }
+
+    public void setQuantidadePrevista(int quantidadePrevista) {
+        this.quantidadePrevista = quantidadePrevista;
     }
 
     public StatusProducao getStatusProducao() {
@@ -88,11 +86,21 @@ public class Producao {
         this.statusProducao = statusProducao;
     }
 
-    public int getQuantidadePrevista() {
-        return quantidadePrevista;
+    public Colheita getColheita() {
+        return colheita;
     }
 
-    public void setQuantidadePrevista(int quantidadePrevista) {
-        this.quantidadePrevista = quantidadePrevista;
+    public void setColheita(Colheita colheita) {
+        this.colheita = colheita;
+        calcularQuantidadeColhida(); // Calcular quantidade colhida quando a colheita é definida
+    }
+
+    // Método para calcular a quantidade colhida
+    public void calcularQuantidadeColhida() {
+        if (colheita != null && colheita.getPerdaErro() != null && colheita.getPerdaDoenca() != null) {
+            int perdas = colheita.getPerdaErro() + colheita.getPerdaDoenca();
+            int quantidadeColhida = quantidadePrevista - perdas;
+            colheita.setQuantidadeColhida(quantidadeColhida);
+        }
     }
 }
