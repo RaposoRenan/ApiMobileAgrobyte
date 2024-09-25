@@ -1,11 +1,14 @@
 package com.agrobyte.ApiMobileAgrobyte.services;
 
+import com.agrobyte.ApiMobileAgrobyte.DTO.ProducaoDTO;
 import com.agrobyte.ApiMobileAgrobyte.entities.Colheita;
 import com.agrobyte.ApiMobileAgrobyte.entities.Producao;
 import com.agrobyte.ApiMobileAgrobyte.entities.StatusProducao;
 import com.agrobyte.ApiMobileAgrobyte.repositories.ProducaoRepository;
+import com.agrobyte.ApiMobileAgrobyte.services.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 
@@ -13,10 +16,17 @@ import java.time.LocalDate;
 public class ProducaoService {
 
     @Autowired
-    private ProducaoRepository producaoRepository;
+    private ProducaoRepository repository;
+
+    @Transactional(readOnly = true)
+    public ProducaoDTO findById(Long id){
+        Producao producao = repository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException("Recurso não encontrado"));
+        return new ProducaoDTO(producao);
+    }
 
     public Producao iniciarColheita(Long producaoId, LocalDate dataColheita, Integer perdaErro, Integer perdaDoenca) {
-        Producao producao = producaoRepository.findById(producaoId)
+        Producao producao = repository.findById(producaoId)
                 .orElseThrow(() -> new IllegalArgumentException("Produção não encontrada"));
 
         // Criar uma nova colheita
@@ -29,6 +39,6 @@ public class ProducaoService {
         producao.setStatusProducao(StatusProducao.COLHIDO);
 
         // Salvar produção
-        return producaoRepository.save(producao);
+        return repository.save(producao);
     }
 }
