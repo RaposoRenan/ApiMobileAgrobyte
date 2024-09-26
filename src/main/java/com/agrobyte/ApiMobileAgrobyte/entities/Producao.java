@@ -22,7 +22,6 @@ public class Producao {
     @Enumerated(EnumType.STRING)
     private StatusProducao statusProducao;
 
-    // Relação one-to-one com a classe Colheita
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "colheita_id", referencedColumnName = "id")
     private Colheita colheita;
@@ -103,4 +102,7 @@ public class Producao {
             colheita.setQuantidadeColhida(quantidadeColhida);
         }
     }
+
+    // REVISAR TODAS INTERAÇÕES ENTRE CLASSES E IMPLEMENTAR "INICIAR_PRODUCAO"(CORRIGIR NA VERDADE)
+
 }
