@@ -2,6 +2,8 @@ package com.agrobyte.ApiMobileAgrobyte.entities;
 
 import jakarta.persistence.*;
 
+import java.util.*;
+
 @Entity
 @Table(name = "tb_insumo")
 public class Insumo {
@@ -11,6 +13,9 @@ public class Insumo {
 
     private String nome;
     private Double valorUnitario;
+
+    @OneToMany(mappedBy = "id.product")
+    private List<InsumoProducao> items = new ArrayList<>();
 
     public Insumo() {
     }
@@ -43,5 +48,27 @@ public class Insumo {
 
     public void setValorUnitario(Double valorUnitario) {
         this.valorUnitario = valorUnitario;
+    }
+
+    public List<InsumoProducao> getItems() {
+        return items;
+    }
+
+    public List<Producao> getOrders(){
+        return items.stream().map(x -> x.getProducao()).toList();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Insumo insumo = (Insumo) o;
+        return Objects.equals(id, insumo.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
     }
 }

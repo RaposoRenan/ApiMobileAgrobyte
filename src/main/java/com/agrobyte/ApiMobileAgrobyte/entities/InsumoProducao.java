@@ -3,6 +3,7 @@ package com.agrobyte.ApiMobileAgrobyte.entities;
 import jakarta.persistence.*;
 
 import java.util.Date;
+import java.util.Objects;
 
 @Entity
 @Table(name = "tb_insumo_producao")
@@ -12,17 +13,13 @@ public class InsumoProducao {
     private InsumoProducaoPK id = new InsumoProducaoPK();
 
     private int quantidade;
-    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
-    private Date dataSaida;
 
-    public InsumoProducao() {
-    }
+    public InsumoProducao() {}
 
-    public InsumoProducao(Insumo insumo, Producao producao, int quantidade, Date dataSaida) {
+    public InsumoProducao(Insumo insumo, Producao producao, int quantidade) {
         id.setInsumo(insumo);
         id.setProducao(producao);
         this.quantidade = quantidade;
-        this.dataSaida = dataSaida;
     }
 
     public Insumo getInsumo() {
@@ -49,11 +46,17 @@ public class InsumoProducao {
         this.quantidade = quantidade;
     }
 
-    public Date getDataSaida() {
-        return dataSaida;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        InsumoProducao that = (InsumoProducao) o;
+        return Objects.equals(id, that.id);
     }
 
-    public void setDataSaida(Date dataSaida) {
-        this.dataSaida = dataSaida;
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
     }
 }

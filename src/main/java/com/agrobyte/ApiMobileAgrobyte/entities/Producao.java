@@ -2,6 +2,10 @@ package com.agrobyte.ApiMobileAgrobyte.entities;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_producao")
@@ -25,6 +29,9 @@ public class Producao {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "colheita_id", referencedColumnName = "id")
     private Colheita colheita;
+
+    @OneToMany(mappedBy = "id.producao")
+    private List<InsumoProducao> insumos = new ArrayList<>();
 
     public Producao() {
     }
@@ -91,7 +98,15 @@ public class Producao {
 
     public void setColheita(Colheita colheita) {
         this.colheita = colheita;
-        calcularQuantidadeColhida(); // Calcular quantidade colhida quando a colheita é definida
+        calcularQuantidadeColhida();
+    }
+
+    public void setItems(List<InsumoProducao> insumos) {
+        this.insumos = insumos;
+    }
+
+    public List<Insumo> getProducts(){
+        return insumos.stream().map(x -> x.getInsumo()).toList();
     }
 
     // Método para calcular a quantidade colhida
@@ -103,6 +118,17 @@ public class Producao {
         }
     }
 
-    // REVISAR TODAS INTERAÇÕES ENTRE CLASSES E IMPLEMENTAR "INICIAR_PRODUCAO"(CORRIGIR NA VERDADE)
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
+        Producao producao = (Producao) o;
+        return Objects.equals(id, producao.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
+    }
 }
