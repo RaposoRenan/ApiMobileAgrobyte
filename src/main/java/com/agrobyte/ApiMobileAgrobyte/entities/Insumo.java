@@ -14,7 +14,7 @@ public class Insumo {
     private String nome;
     private Double valorUnitario;
 
-    @OneToMany(mappedBy = "id.product")
+    @OneToMany(mappedBy = "id.insumo")
     private List<InsumoProducao> items = new ArrayList<>();
 
     public Insumo() {

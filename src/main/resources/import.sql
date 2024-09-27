@@ -21,13 +21,13 @@ INSERT INTO tb_producao(nome_producao, data_entrada, tempo_plantio, status_produ
 INSERT INTO tb_producao(nome_producao, data_entrada, tempo_plantio, status_producao, quantidade_prevista) VALUES ('Alface Safra', '2024-10-01', 30, 'PRONTO_PARA_COLHEITA', 200);
 
 
-INSERT INTO tb_insumo_producao(insumo_id, producao_id, quantidade, data_saida) VALUES (1, 1, 50, '2024-01-15');
-INSERT INTO tb_insumo_producao(insumo_id, producao_id, quantidade, data_saida) VALUES (2, 1, 100, '2024-02-10');
-INSERT INTO tb_insumo_producao(insumo_id, producao_id, quantidade, data_saida) VALUES (3, 3, 200, '2024-03-05');
-INSERT INTO tb_insumo_producao(insumo_id, producao_id, quantidade, data_saida) VALUES (4, 1, 150, '2024-04-01');
-INSERT INTO tb_insumo_producao(insumo_id, producao_id, quantidade, data_saida) VALUES (5, 5, 120, '2024-05-20');
-INSERT INTO tb_insumo_producao(insumo_id, producao_id, quantidade, data_saida) VALUES (6, 6, 180, '2024-06-18');
-INSERT INTO tb_insumo_producao(insumo_id, producao_id, quantidade, data_saida) VALUES (7, 7, 90, '2024-07-15');
-INSERT INTO tb_insumo_producao(insumo_id, producao_id, quantidade, data_saida) VALUES (8, 8, 220, '2024-08-10');
-INSERT INTO tb_insumo_producao(insumo_id, producao_id, quantidade, data_saida) VALUES (9, 9, 140, '2024-09-05');
-INSERT INTO tb_insumo_producao(insumo_id, producao_id, quantidade, data_saida) VALUES (10, 10, 130, '2024-10-02');
+INSERT INTO tb_insumo_producao(insumo_id, producao_id, quantidade) VALUES (1, 1, 50);
+INSERT INTO tb_insumo_producao(insumo_id, producao_id, quantidade) VALUES (2, 1, 100);
+INSERT INTO tb_insumo_producao(insumo_id, producao_id, quantidade) VALUES (3, 3, 200);
+INSERT INTO tb_insumo_producao(insumo_id, producao_id, quantidade) VALUES (4, 1, 150);
+INSERT INTO tb_insumo_producao(insumo_id, producao_id, quantidade) VALUES (5, 5, 120);
+INSERT INTO tb_insumo_producao(insumo_id, producao_id, quantidade) VALUES (6, 6, 180);
+INSERT INTO tb_insumo_producao(insumo_id, producao_id, quantidade) VALUES (7, 7, 90);
+INSERT INTO tb_insumo_producao(insumo_id, producao_id, quantidade) VALUES (8, 8, 220);
+INSERT INTO tb_insumo_producao(insumo_id, producao_id, quantidade) VALUES (9, 9, 140);
+INSERT INTO tb_insumo_producao(insumo_id, producao_id, quantidade) VALUES (10, 10, 130);
