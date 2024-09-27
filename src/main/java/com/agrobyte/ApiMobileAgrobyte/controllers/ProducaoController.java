@@ -32,31 +32,4 @@ public class ProducaoController {
         Page<ProducaoDTO> dto = service.findAll(pageable);
         return ResponseEntity.ok(dto);
     }
-
-    @PostMapping
-    public ResponseEntity<ProducaoDTO> insert(@Valid @RequestBody ProducaoDTO dto){
-        dto = service.iniciarProducao(dto);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/id").buildAndExpand(dto.getId()).toUri();
-        return ResponseEntity.created(uri).body(dto);
-    }
-
-    @PutMapping(value = "/{id}")
-    public ResponseEntity<ProducaoDTO> update(@PathVariable Long id, @Valid @RequestBody ProducaoDTO dto){
-        dto = service.update(id, dto);
-        return ResponseEntity.ok(dto);
-    }
-
-    @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id){
-        service.delete(id);
-        return ResponseEntity.noContent().build();
-    }
-
-    // Endpoint para testar o cálculo de colheita
-    @PostMapping("/{id}/colher")
-    public Producao iniciarColheita(@PathVariable Long id,
-                                    @RequestParam Integer perdaErro,
-                                    @RequestParam Integer perdaDoenca) {
-        return service.iniciarColheita(id, LocalDate.now(), perdaErro, perdaDoenca);
-    }
 }
