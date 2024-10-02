@@ -5,7 +5,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
 @Table(name = "tb_producao")
@@ -109,7 +108,7 @@ public class Producao {
         return insumos.stream().map(x -> x.getInsumo()).toList();
     }
 
-    // Método para calcular a quantidade colhida
+    // Metodo para calcular a quantidade colhida
     public void calcularQuantidadeColhida() {
         if (colheita != null && colheita.getPerdaErro() != null && colheita.getPerdaDoenca() != null) {
             int perdas = colheita.getPerdaErro() + colheita.getPerdaDoenca();

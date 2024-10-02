@@ -1,7 +1,9 @@
 package com.agrobyte.ApiMobileAgrobyte.services;
 
 import com.agrobyte.ApiMobileAgrobyte.DTO.ProducaoDTO;
+import com.agrobyte.ApiMobileAgrobyte.DTO.ProducaoDTO;
 import com.agrobyte.ApiMobileAgrobyte.entities.Colheita;
+import com.agrobyte.ApiMobileAgrobyte.entities.Producao;
 import com.agrobyte.ApiMobileAgrobyte.entities.Producao;
 import com.agrobyte.ApiMobileAgrobyte.entities.StatusProducao;
 import com.agrobyte.ApiMobileAgrobyte.repositories.ProducaoRepository;
@@ -35,5 +37,51 @@ public class ProducaoService {
     public Page<ProducaoDTO> findAll(Pageable pageable){
         Page<Producao> result = repository.findAll(pageable);
         return result.map(ProducaoDTO::new);
+    }
+
+    @Transactional
+    public ProducaoDTO insert(ProducaoDTO dto){
+
+        Producao entity = new Producao();
+        copyDtoToEntity(dto, entity);
+        entity = repository.save(entity);
+        entity.setDataEntrada(LocalDate.now());
+        entity.setStatusProducao(StatusProducao.PLANTIO);
+        return new ProducaoDTO(entity);
+    }
+
+    @Transactional
+    public ProducaoDTO update(Long id, ProducaoDTO dto){
+        try {
+            Producao entity = repository.getReferenceById(id);
+            copyDtoToEntity(dto, entity);
+            entity.setDataEntrada(dto.getDataEntrada());
+            entity.setStatusProducao(dto.getStatus());
+            entity = repository.save(entity);
+            return new ProducaoDTO(entity);
+
+        }
+        catch (EntityNotFoundException e){
+            throw new ResourceNotFoundException("Recurso não encontrado");
+        }
+    }
+
+    private void copyDtoToEntity(ProducaoDTO dto, Producao entity) {
+        entity.setNomeProducao(dto.getNomeProducao());
+        entity.setTempoPlantio(dto.getTempoPlantio());
+        entity.setQuantidadePrevista(dto.getQuantidadePrevista());
+    }
+
+    @Transactional(propagation = Propagation.SUPPORTS)
+    public void delete(Long id){
+        if(!repository.existsById(id)){
+            throw new ResourceNotFoundException("Recurso não encontrado");
+        }
+        try{
+            repository.deleteById(id);
+        }
+        catch (DataIntegrityViolationException e) {
+            throw new DatabaseException("Falha de integridade referencial");
+        }
     }
 }
