@@ -1,8 +1,8 @@
 package com.agrobyte.ApiMobileAgrobyte.services;
 
 import com.agrobyte.ApiMobileAgrobyte.DTO.ProducaoDTO;
-import com.agrobyte.ApiMobileAgrobyte.entities.Producao;
-import com.agrobyte.ApiMobileAgrobyte.entities.StatusProducao;
+import com.agrobyte.ApiMobileAgrobyte.entities.*;
+import com.agrobyte.ApiMobileAgrobyte.repositories.InsumoRepository;
 import com.agrobyte.ApiMobileAgrobyte.repositories.ProducaoRepository;
 import com.agrobyte.ApiMobileAgrobyte.services.exception.DatabaseException;
 import com.agrobyte.ApiMobileAgrobyte.services.exception.ResourceNotFoundException;
@@ -22,6 +22,7 @@ public class ProducaoService {
 
     @Autowired
     private ProducaoRepository repository;
+    private InsumoRepository insumoRepository;
 
     @Transactional(readOnly = true)
     public ProducaoDTO findById(Long id){
@@ -37,13 +38,13 @@ public class ProducaoService {
     }
 
     @Transactional
-    public ProducaoDTO insert(ProducaoDTO dto){
+    public ProducaoDTO insertProducao(ProducaoDTO dto){
 
         Producao entity = new Producao();
         copyDtoToEntity(dto, entity);
-        entity = repository.save(entity);
         entity.setDataEntrada(LocalDate.now());
         entity.setStatusProducao(StatusProducao.PLANTIO);
+        entity = repository.save(entity);
         return new ProducaoDTO(entity);
     }
 

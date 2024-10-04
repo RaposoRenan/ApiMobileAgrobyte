@@ -6,6 +6,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProducaoDTO {
 
@@ -15,6 +17,7 @@ public class ProducaoDTO {
     private int tempoPlantio;
     private int quantidadePrevista;
     private StatusProducao status;
+    private List<InsumoDTO> insumos = new ArrayList<>();
 
     public ProducaoDTO(Long id, String nomeProducao, LocalDate dataEntrada, int tempoPlantio, int quantidadePrevista, StatusProducao status) {
         this.id = id;
@@ -59,5 +62,9 @@ public class ProducaoDTO {
 
     public StatusProducao getStatus() {
         return status;
+    }
+
+    public List<InsumoDTO> getInsumos() {
+        return insumos;
     }
 }

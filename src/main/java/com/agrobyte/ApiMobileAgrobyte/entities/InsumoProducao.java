@@ -34,7 +34,7 @@ public class InsumoProducao {
         return id.getProducao();
     }
 
-    public void setProducao(Producao producao) {
+    public void setProducao(Producao producao){
         id.setProducao(producao);
     }
 

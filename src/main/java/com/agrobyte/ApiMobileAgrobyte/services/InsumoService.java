@@ -34,7 +34,7 @@ public class InsumoService {
     }
 
     @Transactional
-    public InsumoDTO insert(InsumoDTO dto){
+    public InsumoDTO insertInsumo(InsumoDTO dto){
 
         Insumo entity = new Insumo();
         copyDtoToEntity(dto, entity);

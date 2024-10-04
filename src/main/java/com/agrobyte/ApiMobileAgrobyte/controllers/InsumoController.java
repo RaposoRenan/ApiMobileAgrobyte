@@ -31,8 +31,8 @@ public class InsumoController {
     }
 
     @PostMapping
-    public ResponseEntity<InsumoDTO> insert(@Valid @RequestBody InsumoDTO dto){
-        dto = service.insert(dto);
+    public ResponseEntity<InsumoDTO> insertInsumos(@Valid @RequestBody InsumoDTO dto){
+        dto = service.insertInsumo(dto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/id").buildAndExpand(dto.getId()).toUri();
         return ResponseEntity.created(uri).body(dto);
     }

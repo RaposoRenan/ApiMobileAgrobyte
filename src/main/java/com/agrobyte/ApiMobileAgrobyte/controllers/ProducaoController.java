@@ -32,8 +32,8 @@ public class ProducaoController {
     }
 
     @PostMapping
-    public ResponseEntity<ProducaoDTO> insert(@Valid @RequestBody ProducaoDTO dto){
-        dto = service.insert(dto);
+    public ResponseEntity<ProducaoDTO> insertInsumos(@Valid @RequestBody ProducaoDTO dto){
+        dto = service.insertProducao(dto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/id").buildAndExpand(dto.getId()).toUri();
         return ResponseEntity.created(uri).body(dto);
     }
