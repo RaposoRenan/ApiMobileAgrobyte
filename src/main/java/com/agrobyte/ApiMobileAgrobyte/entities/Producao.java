@@ -100,11 +100,11 @@ public class Producao {
         calcularQuantidadeColhida();
     }
 
-    public void setItems(List<InsumoProducao> insumos) {
+    public void setInsumos(List<InsumoProducao> insumos) {
         this.insumos = insumos;
     }
 
-    public List<Insumo> getProducts(){
+    public List<Insumo> getInsumos(){
         return insumos.stream().map(x -> x.getInsumo()).toList();
     }
 

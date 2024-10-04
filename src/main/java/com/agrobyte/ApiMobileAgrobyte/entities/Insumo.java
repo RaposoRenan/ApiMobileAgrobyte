@@ -15,7 +15,7 @@ public class Insumo {
     private Double valorUnitario;
 
     @OneToMany(mappedBy = "id.insumo")
-    private List<InsumoProducao> items = new ArrayList<>();
+    private List<InsumoProducao> insumos = new ArrayList<>();
 
     public Insumo() {
     }
@@ -50,12 +50,16 @@ public class Insumo {
         this.valorUnitario = valorUnitario;
     }
 
-    public List<InsumoProducao> getItems() {
-        return items;
+    public List<InsumoProducao> getInsumos() {
+        return insumos;
     }
 
-    public List<Producao> getOrders(){
-        return items.stream().map(x -> x.getProducao()).toList();
+    public List<Producao> getProducao(){
+        return insumos.stream().map(x -> x.getProducao()).toList();
+    }
+
+    public void setInsumos(List<InsumoProducao> insumos) {
+        this.insumos = insumos;
     }
 
     @Override

@@ -1,9 +1,6 @@
 package com.agrobyte.ApiMobileAgrobyte.services;
 
 import com.agrobyte.ApiMobileAgrobyte.DTO.ProducaoDTO;
-import com.agrobyte.ApiMobileAgrobyte.DTO.ProducaoDTO;
-import com.agrobyte.ApiMobileAgrobyte.entities.Colheita;
-import com.agrobyte.ApiMobileAgrobyte.entities.Producao;
 import com.agrobyte.ApiMobileAgrobyte.entities.Producao;
 import com.agrobyte.ApiMobileAgrobyte.entities.StatusProducao;
 import com.agrobyte.ApiMobileAgrobyte.repositories.ProducaoRepository;
