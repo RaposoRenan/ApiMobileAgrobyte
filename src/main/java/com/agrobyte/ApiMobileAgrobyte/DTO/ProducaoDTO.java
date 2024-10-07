@@ -1,7 +1,6 @@
 package com.agrobyte.ApiMobileAgrobyte.DTO;
 
-import com.agrobyte.ApiMobileAgrobyte.entities.Producao;
-import com.agrobyte.ApiMobileAgrobyte.entities.StatusProducao;
+import com.agrobyte.ApiMobileAgrobyte.entities.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
 
@@ -17,7 +16,7 @@ public class ProducaoDTO {
     private int tempoPlantio;
     private int quantidadePrevista;
     private StatusProducao status;
-    private List<InsumoDTO> insumos = new ArrayList<>();
+    private List<InsumoProducaoDTO> insumos = new ArrayList<>();
 
     public ProducaoDTO(Long id, String nomeProducao, LocalDate dataEntrada, int tempoPlantio, int quantidadePrevista, StatusProducao status) {
         this.id = id;
@@ -35,6 +34,10 @@ public class ProducaoDTO {
         tempoPlantio = entity.getTempoPlantio();
         quantidadePrevista = entity.getQuantidadePrevista();
         status = entity.getStatusProducao();
+        for (InsumoProducao insumoProducao : entity.getInsumos()) {
+            InsumoProducaoDTO insumosDTO = new InsumoProducaoDTO(insumoProducao);
+            insumos.add(insumosDTO);
+        }
     }
 
     public Long getId() {
@@ -64,7 +67,8 @@ public class ProducaoDTO {
         return status;
     }
 
-    public List<InsumoDTO> getInsumos() {
+
+    public List<InsumoProducaoDTO> getInsumos() {
         return insumos;
     }
 }

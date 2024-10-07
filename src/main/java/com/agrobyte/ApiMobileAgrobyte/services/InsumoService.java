@@ -34,7 +34,7 @@ public class InsumoService {
     }
 
     @Transactional
-    public InsumoDTO insertInsumo(InsumoDTO dto){
+    public InsumoDTO insert(InsumoDTO dto){
 
         Insumo entity = new Insumo();
         copyDtoToEntity(dto, entity);
@@ -49,7 +49,6 @@ public class InsumoService {
             copyDtoToEntity(dto, entity);
             entity = repository.save(entity);
             return new InsumoDTO(entity);
-
         }
         catch (EntityNotFoundException e){
             throw new ResourceNotFoundException("Recurso não encontrado");

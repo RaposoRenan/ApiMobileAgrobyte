@@ -1,7 +1,9 @@
 package com.agrobyte.ApiMobileAgrobyte.services;
 
+import com.agrobyte.ApiMobileAgrobyte.DTO.InsumoProducaoDTO;
 import com.agrobyte.ApiMobileAgrobyte.DTO.ProducaoDTO;
 import com.agrobyte.ApiMobileAgrobyte.entities.*;
+import com.agrobyte.ApiMobileAgrobyte.repositories.InsumoProducaoRepository;
 import com.agrobyte.ApiMobileAgrobyte.repositories.InsumoRepository;
 import com.agrobyte.ApiMobileAgrobyte.repositories.ProducaoRepository;
 import com.agrobyte.ApiMobileAgrobyte.services.exception.DatabaseException;
@@ -22,7 +24,12 @@ public class ProducaoService {
 
     @Autowired
     private ProducaoRepository repository;
+
+    @Autowired
     private InsumoRepository insumoRepository;
+
+    @Autowired
+    private InsumoProducaoRepository insumoProducaoRepository;
 
     @Transactional(readOnly = true)
     public ProducaoDTO findById(Long id){
@@ -38,14 +45,22 @@ public class ProducaoService {
     }
 
     @Transactional
-    public ProducaoDTO insertProducao(ProducaoDTO dto){
+    public ProducaoDTO insert(ProducaoDTO dto){
 
-        Producao entity = new Producao();
-        copyDtoToEntity(dto, entity);
-        entity.setDataEntrada(LocalDate.now());
-        entity.setStatusProducao(StatusProducao.PLANTIO);
-        entity = repository.save(entity);
-        return new ProducaoDTO(entity);
+        Producao producao = new Producao();
+
+        producao.setDataEntrada(LocalDate.now());
+        producao.setStatusProducao(StatusProducao.PLANTIO);
+
+        for (InsumoProducaoDTO insumoDTO : dto.getInsumos()){
+            Insumo insumo = insumoRepository.getReferenceById(insumoDTO.getInsumoID());
+            InsumoProducao insumos = new InsumoProducao(insumo, producao , insumoDTO.getQuantidade());
+            producao.getInsumos().add(insumo);
+        }
+
+        repository.save(producao);
+        insumoProducaoRepository.saveAll(producao.getInsumos());
+        return new ProducaoDTO(producao);
     }
 
     @Transactional

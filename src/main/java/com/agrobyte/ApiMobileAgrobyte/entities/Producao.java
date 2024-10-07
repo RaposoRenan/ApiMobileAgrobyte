@@ -91,15 +91,6 @@ public class Producao {
         this.statusProducao = statusProducao;
     }
 
-    public Colheita getColheita() {
-        return colheita;
-    }
-
-    public void setColheita(Colheita colheita) {
-        this.colheita = colheita;
-        calcularQuantidadeColhida();
-    }
-
     public void setInsumos(List<InsumoProducao> insumos) {
         this.insumos = insumos;
     }
@@ -108,14 +99,23 @@ public class Producao {
         return insumos.stream().map(x -> x.getInsumo()).toList();
     }
 
-    // Metodo para calcular a quantidade colhida
-    public void calcularQuantidadeColhida() {
-        if (colheita != null && colheita.getPerdaErro() != null && colheita.getPerdaDoenca() != null) {
-            int perdas = colheita.getPerdaErro() + colheita.getPerdaDoenca();
-            int quantidadeColhida = quantidadePrevista - perdas;
-            colheita.setQuantidadeColhida(quantidadeColhida);
-        }
+    public Colheita getColheita() {
+        return colheita;
     }
+
+//    public void setColheita(Colheita colheita) {
+//        this.colheita = colheita;
+//        calcularQuantidadeColhida();
+//    }
+//
+//    // Metodo para calcular a quantidade colhida
+//    public void calcularQuantidadeColhida() {
+//        if (colheita != null && colheita.getPerdaErro() != null && colheita.getPerdaDoenca() != null) {
+//            int perdas = colheita.getPerdaErro() + colheita.getPerdaDoenca();
+//            int quantidadeColhida = quantidadePrevista - perdas;
+//            colheita.setQuantidadeColhida(quantidadeColhida);
+//        }
+//    }
 
     @Override
     public boolean equals(Object o) {

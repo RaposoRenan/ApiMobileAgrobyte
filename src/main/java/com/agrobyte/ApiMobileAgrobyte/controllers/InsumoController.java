@@ -15,6 +15,7 @@ import java.net.URI;
 @RestController
 @RequestMapping(value = "/insumo")
 public class InsumoController {
+
     @Autowired
     private InsumoService service;
 
@@ -31,9 +32,9 @@ public class InsumoController {
     }
 
     @PostMapping
-    public ResponseEntity<InsumoDTO> insertInsumos(@Valid @RequestBody InsumoDTO dto){
-        dto = service.insertInsumo(dto);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/id").buildAndExpand(dto.getId()).toUri();
+    public ResponseEntity<InsumoDTO> insert(@Valid @RequestBody InsumoDTO dto){
+        dto = service.insert(dto);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
         return ResponseEntity.created(uri).body(dto);
     }
 

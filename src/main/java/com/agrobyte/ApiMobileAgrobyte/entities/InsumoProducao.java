@@ -14,7 +14,7 @@ public class InsumoProducao {
 
     private int quantidade;
 
-    public InsumoProducao() {}
+    public InsumoProducao(){}
 
     public InsumoProducao(Insumo insumo, Producao producao, int quantidade) {
         id.setInsumo(insumo);
@@ -46,17 +46,4 @@ public class InsumoProducao {
         this.quantidade = quantidade;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        InsumoProducao that = (InsumoProducao) o;
-        return Objects.equals(id, that.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(id);
-    }
 }
