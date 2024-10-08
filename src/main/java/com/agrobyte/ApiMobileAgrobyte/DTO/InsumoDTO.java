@@ -3,26 +3,24 @@ package com.agrobyte.ApiMobileAgrobyte.DTO;
 import com.agrobyte.ApiMobileAgrobyte.entities.Insumo;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class InsumoDTO {
     private Long id;
     private String nome;
     private Double valorUnitario;
 
-    public InsumoDTO(Long id, String nome, Double valorUnitario) {
-        this.id = id;
-        this.nome = nome;
-        this.valorUnitario = valorUnitario;
-    }
-
     public InsumoDTO(Insumo entity) {
         id = entity.getId();
         nome = entity.getNome();
         valorUnitario = entity.getValorUnitario();
-    }
-
-    public Long getId() {
-        return id;
     }
 
     @NotBlank(message = "Campo requerido")

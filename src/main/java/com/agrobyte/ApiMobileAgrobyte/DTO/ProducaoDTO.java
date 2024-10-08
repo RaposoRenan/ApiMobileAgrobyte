@@ -3,11 +3,19 @@ package com.agrobyte.ApiMobileAgrobyte.DTO;
 import com.agrobyte.ApiMobileAgrobyte.entities.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class ProducaoDTO {
 
     private Long id;
@@ -40,17 +48,9 @@ public class ProducaoDTO {
         }
     }
 
-    public Long getId() {
-        return id;
-    }
-
     @NotBlank(message = "Campo requerido")
     public String getNomeProducao() {
         return nomeProducao;
-    }
-
-    public LocalDate getDataEntrada() {
-        return dataEntrada;
     }
 
     @Positive(message = "Quantidade tem que ser positiva")
@@ -61,14 +61,5 @@ public class ProducaoDTO {
     @Positive(message = "Quantidade tem que ser positiva")
     public int getQuantidadePrevista() {
         return quantidadePrevista;
-    }
-
-    public StatusProducao getStatus() {
-        return status;
-    }
-
-
-    public List<InsumoProducaoDTO> getInsumos() {
-        return insumos;
     }
 }

@@ -1,10 +1,18 @@
 package com.agrobyte.ApiMobileAgrobyte.entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.Date;
 import java.util.Objects;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "tb_insumo_producao")
 public class InsumoProducao {
@@ -14,12 +22,18 @@ public class InsumoProducao {
 
     private int quantidade;
 
-    public InsumoProducao(){}
-
     public InsumoProducao(Insumo insumo, Producao producao, int quantidade) {
         id.setInsumo(insumo);
         id.setProducao(producao);
         this.quantidade = quantidade;
+    }
+
+    public Producao getProducao() {
+        return id.getProducao();
+    }
+
+    public void setProducao(Producao producao) {
+        id.setProducao(producao);
     }
 
     public Insumo getInsumo() {
@@ -29,21 +43,5 @@ public class InsumoProducao {
     public void setInsumo(Insumo insumo) {
         id.setInsumo(insumo);
     }
-
-    public Producao getProducao() {
-        return id.getProducao();
-    }
-
-    public void setProducao(Producao producao){
-        id.setProducao(producao);
-    }
-
-    public int getQuantidade() {
-        return quantidade;
-    }
-
-    public void setQuantidade(int quantidade) {
-        this.quantidade = quantidade;
-    }
-
+    
 }

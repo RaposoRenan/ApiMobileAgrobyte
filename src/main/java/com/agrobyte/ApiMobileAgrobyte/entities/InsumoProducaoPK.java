@@ -3,9 +3,17 @@ package com.agrobyte.ApiMobileAgrobyte.entities;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.Objects;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Embeddable
 public class InsumoProducaoPK {
 
@@ -16,30 +24,6 @@ public class InsumoProducaoPK {
     @ManyToOne
     @JoinColumn(name = "producao_id")
     private Producao producao;
-
-    public InsumoProducaoPK() {
-    }
-
-    public InsumoProducaoPK(Insumo insumo, Producao producao) {
-        this.insumo = insumo;
-        this.producao = producao;
-    }
-
-    public Insumo getInsumo() {
-        return insumo;
-    }
-
-    public void setInsumo(Insumo insumo) {
-        this.insumo = insumo;
-    }
-
-    public Producao getProducao() {
-        return producao;
-    }
-
-    public void setProducao(Producao producao) {
-        this.producao = producao;
-    }
 
     @Override
     public boolean equals(Object o) {
