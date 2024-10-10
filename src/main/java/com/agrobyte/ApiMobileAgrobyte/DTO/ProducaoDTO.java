@@ -38,7 +38,7 @@ public class ProducaoDTO {
         status = entity.getStatusProducao();
 
         for (InsumoProducao insumoProducao : entity.getInsumos()) {
-            InsumoDTO insumoDTO = new InsumoDTO(insumoProducao.getInsumo().getId(), insumoProducao.getInsumo().getNome(), insumoProducao.getValor());
+            InsumoDTO insumoDTO = new InsumoDTO(insumoProducao.getInsumo().getId(), insumoProducao.getInsumo().getNome(), insumoProducao.getValor(), insumoProducao.getQuantidade());
             insumos.add(insumoDTO);
         }
     }

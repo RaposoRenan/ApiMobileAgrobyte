@@ -60,7 +60,7 @@ public class ProducaoService {
 
         for (InsumoDTO insumoDTO : dto.getInsumos()) {
             Insumo insumo = insumoRepository.getReferenceById(insumoDTO.getId());
-            InsumoProducao insumoProducao = new InsumoProducao(insumo, producao, 1, insumo.getValorUnitario());
+            InsumoProducao insumoProducao = new InsumoProducao(insumo, producao, insumoDTO.getQuantidade(), insumoDTO.getValorUnitario());
 
             producao.getInsumos().add(insumoProducao);
         }

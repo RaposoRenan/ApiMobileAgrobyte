@@ -14,6 +14,7 @@ public class InsumoDTO {
     private Long id;
     private String nome;
     private Double valorUnitario;
+    private Integer quantidade;
 
     public InsumoDTO(Long id) {
         this.id = id;
