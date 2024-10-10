@@ -19,10 +19,10 @@ public class InsumoProducao {
     @EmbeddedId
     private InsumoProducaoPK id = new InsumoProducaoPK();
 
-    private int quantidade;
+    private Integer quantidade;
     private Double valor;
 
-    public InsumoProducao(Insumo insumo, Producao producao, int quantidade, Double valor) {
+    public InsumoProducao(Insumo insumo, Producao producao, Integer quantidade, Double valor) {
         id.setInsumo(insumo);
         id.setProducao(producao);
         this.quantidade = quantidade;

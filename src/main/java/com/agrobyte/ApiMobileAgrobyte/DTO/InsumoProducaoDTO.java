@@ -15,7 +15,11 @@ public class InsumoProducaoDTO {
     private Long insumoID;
     private String nome;
     private Double valor;
-    private int quantidade;
+    private Integer quantidade;
+
+    public InsumoProducaoDTO(Integer quantidade) {
+        this.quantidade = quantidade;
+    }
 
     public InsumoProducaoDTO(InsumoProducao entity) {
         insumoID = entity.getInsumo().getId();

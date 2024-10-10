@@ -1,11 +1,13 @@
 package com.agrobyte.ApiMobileAgrobyte.services;
 
 import com.agrobyte.ApiMobileAgrobyte.DTO.InsumoDTO;
+import com.agrobyte.ApiMobileAgrobyte.DTO.InsumoProducaoDTO;
 import com.agrobyte.ApiMobileAgrobyte.DTO.ProducaoDTO;
 import com.agrobyte.ApiMobileAgrobyte.entities.Insumo;
 import com.agrobyte.ApiMobileAgrobyte.entities.InsumoProducao;
 import com.agrobyte.ApiMobileAgrobyte.entities.Producao;
 import com.agrobyte.ApiMobileAgrobyte.entities.StatusProducao;
+import com.agrobyte.ApiMobileAgrobyte.repositories.InsumoProducaoRepository;
 import com.agrobyte.ApiMobileAgrobyte.repositories.InsumoRepository;
 import com.agrobyte.ApiMobileAgrobyte.repositories.ProducaoRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -24,6 +26,9 @@ public class ProducaoService {
     @Autowired
     private InsumoRepository insumoRepository;
 
+    @Autowired
+    private InsumoProducaoRepository insumoProducaoRepository;
+
     @Transactional
     public ProducaoDTO insert(ProducaoDTO dto) {
         Producao producao = new Producao();
@@ -35,14 +40,8 @@ public class ProducaoService {
         producao.setStatusProducao(StatusProducao.PLANTIO);
 
         for (InsumoDTO insumoDTO : dto.getInsumos()) {
-            Insumo insumo = insumoRepository.findById(insumoDTO.getId())
-                    .orElseThrow(() -> new EntityNotFoundException("Insumo não encontrado: " + insumoDTO.getId()));
-
-            InsumoProducao insumoProducao = new InsumoProducao();
-            insumoProducao.setInsumo(insumo);
-            insumoProducao.setProducao(producao);
-            insumoProducao.setQuantidade(1); // Pode ser ajustado conforme o necessário
-            insumoProducao.setValor(insumo.getValorUnitario()); // Pode ser ajustado conforme o necessário
+            Insumo insumo = insumoRepository.getReferenceById(insumoDTO.getId());
+            InsumoProducao insumoProducao = new InsumoProducao(insumo, producao, 1, insumo.getValorUnitario());
 
             producao.getInsumos().add(insumoProducao);
         }
