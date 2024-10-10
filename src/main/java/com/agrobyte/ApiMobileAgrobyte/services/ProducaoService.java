@@ -10,9 +10,15 @@ import com.agrobyte.ApiMobileAgrobyte.entities.StatusProducao;
 import com.agrobyte.ApiMobileAgrobyte.repositories.InsumoProducaoRepository;
 import com.agrobyte.ApiMobileAgrobyte.repositories.InsumoRepository;
 import com.agrobyte.ApiMobileAgrobyte.repositories.ProducaoRepository;
+import com.agrobyte.ApiMobileAgrobyte.services.exception.DatabaseException;
+import com.agrobyte.ApiMobileAgrobyte.services.exception.ResourceNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
@@ -28,6 +34,19 @@ public class ProducaoService {
 
     @Autowired
     private InsumoProducaoRepository insumoProducaoRepository;
+
+    @Transactional(readOnly = true)
+    public ProducaoDTO findById(Long id){
+        Producao producao = producaoRepository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException("Recurso não encontrado"));
+        return new ProducaoDTO(producao);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<ProducaoDTO> findAll(Pageable pageable){
+        Page<Producao> result = producaoRepository.findAll(pageable);
+        return result.map(x -> new ProducaoDTO(x));
+    }
 
     @Transactional
     public ProducaoDTO insert(ProducaoDTO dto) {
@@ -48,5 +67,19 @@ public class ProducaoService {
 
         producaoRepository.save(producao);
         return new ProducaoDTO(producao);
+    }
+
+
+    @Transactional(propagation = Propagation.SUPPORTS)
+    public void delete(Long id){
+        if(!producaoRepository.existsById(id)){
+            throw new ResourceNotFoundException("Recurso não encontrado");
+        }
+        try{
+            producaoRepository.deleteById(id);
+        }
+        catch (DataIntegrityViolationException e) {
+            throw new DatabaseException("Falha de integridade referencial");
+        }
     }
 }
