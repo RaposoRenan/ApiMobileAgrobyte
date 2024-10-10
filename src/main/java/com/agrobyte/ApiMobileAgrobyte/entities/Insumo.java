@@ -25,17 +25,7 @@ public class Insumo {
     @OneToMany(mappedBy = "id.insumo")
     private Set<InsumoProducao> insumos = new HashSet<>();
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Insumo insumo = (Insumo) o;
-        return Objects.equals(id, insumo.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(id);
+    public List<Producao> getProducao() {
+        return insumos.stream().map(x -> x.getProducao()).toList();
     }
 }

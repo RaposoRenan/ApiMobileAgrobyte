@@ -1,20 +1,16 @@
 package com.agrobyte.ApiMobileAgrobyte.services;
 
-import com.agrobyte.ApiMobileAgrobyte.DTO.InsumoProducaoDTO;
+import com.agrobyte.ApiMobileAgrobyte.DTO.InsumoDTO;
 import com.agrobyte.ApiMobileAgrobyte.DTO.ProducaoDTO;
-import com.agrobyte.ApiMobileAgrobyte.entities.*;
-import com.agrobyte.ApiMobileAgrobyte.repositories.InsumoProducaoRepository;
+import com.agrobyte.ApiMobileAgrobyte.entities.Insumo;
+import com.agrobyte.ApiMobileAgrobyte.entities.InsumoProducao;
+import com.agrobyte.ApiMobileAgrobyte.entities.Producao;
+import com.agrobyte.ApiMobileAgrobyte.entities.StatusProducao;
 import com.agrobyte.ApiMobileAgrobyte.repositories.InsumoRepository;
 import com.agrobyte.ApiMobileAgrobyte.repositories.ProducaoRepository;
-import com.agrobyte.ApiMobileAgrobyte.services.exception.DatabaseException;
-import com.agrobyte.ApiMobileAgrobyte.services.exception.ResourceNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
@@ -23,78 +19,35 @@ import java.time.LocalDate;
 public class ProducaoService {
 
     @Autowired
-    private ProducaoRepository repository;
+    private ProducaoRepository producaoRepository;
 
     @Autowired
     private InsumoRepository insumoRepository;
 
-    @Autowired
-    private InsumoProducaoRepository insumoProducaoRepository;
-
-    @Transactional(readOnly = true)
-    public ProducaoDTO findById(Long id){
-        Producao producao = repository.findById(id).orElseThrow(
-                () -> new ResourceNotFoundException("Recurso não encontrado"));
-        return new ProducaoDTO(producao);
-    }
-
-    @Transactional(readOnly = true)
-    public Page<ProducaoDTO> findAll(Pageable pageable){
-        Page<Producao> result = repository.findAll(pageable);
-        return result.map(ProducaoDTO::new);
-    }
-
     @Transactional
-    public ProducaoDTO insert(ProducaoDTO dto){
-
+    public ProducaoDTO insert(ProducaoDTO dto) {
         Producao producao = new Producao();
 
+        producao.setNomeProducao(dto.getNomeProducao());
+        producao.setTempoPlantio(dto.getTempoPlantio());
+        producao.setQuantidadePrevista(dto.getQuantidadePrevista());
         producao.setDataEntrada(LocalDate.now());
         producao.setStatusProducao(StatusProducao.PLANTIO);
 
-        for (InsumoProducaoDTO insumoDTO : dto.getInsumos()){
-            Insumo insumo = insumoRepository.getReferenceById(insumoDTO.getInsumoID());
-            InsumoProducao insumos = new InsumoProducao(insumo, producao , insumoDTO.getQuantidade());
-            producao.getInsumos().add(insumos);
+        for (InsumoDTO insumoDTO : dto.getInsumos()) {
+            Insumo insumo = insumoRepository.findById(insumoDTO.getId())
+                    .orElseThrow(() -> new EntityNotFoundException("Insumo não encontrado: " + insumoDTO.getId()));
+
+            InsumoProducao insumoProducao = new InsumoProducao();
+            insumoProducao.setInsumo(insumo);
+            insumoProducao.setProducao(producao);
+            insumoProducao.setQuantidade(1); // Pode ser ajustado conforme o necessário
+            insumoProducao.setValor(insumo.getValorUnitario()); // Pode ser ajustado conforme o necessário
+
+            producao.getInsumos().add(insumoProducao);
         }
 
-        repository.save(producao);
-        insumoProducaoRepository.saveAll(producao.getInsumos());
+        producaoRepository.save(producao);
         return new ProducaoDTO(producao);
-    }
-
-    @Transactional
-    public ProducaoDTO update(Long id, ProducaoDTO dto){
-        try {
-            Producao entity = repository.getReferenceById(id);
-            copyDtoToEntity(dto, entity);
-            entity.setDataEntrada(dto.getDataEntrada());
-            entity.setStatusProducao(dto.getStatus());
-            entity = repository.save(entity);
-            return new ProducaoDTO(entity);
-
-        }
-        catch (EntityNotFoundException e){
-            throw new ResourceNotFoundException("Recurso não encontrado");
-        }
-    }
-
-    private void copyDtoToEntity(ProducaoDTO dto, Producao entity) {
-        entity.setNomeProducao(dto.getNomeProducao());
-        entity.setTempoPlantio(dto.getTempoPlantio());
-        entity.setQuantidadePrevista(dto.getQuantidadePrevista());
-    }
-
-    @Transactional(propagation = Propagation.SUPPORTS)
-    public void delete(Long id){
-        if(!repository.existsById(id)){
-            throw new ResourceNotFoundException("Recurso não encontrado");
-        }
-        try{
-            repository.deleteById(id);
-        }
-        catch (DataIntegrityViolationException e) {
-            throw new DatabaseException("Falha de integridade referencial");
-        }
     }
 }

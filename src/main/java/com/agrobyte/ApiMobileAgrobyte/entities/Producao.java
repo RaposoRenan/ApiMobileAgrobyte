@@ -9,7 +9,6 @@ import lombok.Setter;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Getter
 @Setter
@@ -34,24 +33,13 @@ public class Producao {
     @Enumerated(EnumType.STRING)
     private StatusProducao statusProducao;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "colheita_id", referencedColumnName = "id")
-    private Colheita colheita;
 
-    @OneToMany(mappedBy = "id.producao")
+    @OneToMany(mappedBy = "id.producao", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<InsumoProducao> insumos = new ArrayList<>();
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Producao producao = (Producao) o;
-        return Objects.equals(id, producao.id);
+    public List<Insumo> getInsumo(){
+        return insumos.stream().map(x -> x.getInsumo()).toList();
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(id);
-    }
+
 }

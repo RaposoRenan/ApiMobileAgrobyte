@@ -20,11 +20,11 @@ public class InsumoProducaoDTO {
     public InsumoProducaoDTO(InsumoProducao entity) {
         insumoID = entity.getInsumo().getId();
         nome = entity.getInsumo().getNome();
-        valor = entity.getInsumo().getValorUnitario();
+        valor = entity.getValor();
         quantidade = entity.getQuantidade();
     }
 
-    public Double getTotal() {
+    public Double getSubTotal() {
         return valor * quantidade;
     }
 }

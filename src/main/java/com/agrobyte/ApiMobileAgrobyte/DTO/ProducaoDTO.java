@@ -1,6 +1,8 @@
 package com.agrobyte.ApiMobileAgrobyte.DTO;
 
-import com.agrobyte.ApiMobileAgrobyte.entities.*;
+import com.agrobyte.ApiMobileAgrobyte.entities.InsumoProducao;
+import com.agrobyte.ApiMobileAgrobyte.entities.Producao;
+import com.agrobyte.ApiMobileAgrobyte.entities.StatusProducao;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
@@ -24,16 +26,8 @@ public class ProducaoDTO {
     private int tempoPlantio;
     private int quantidadePrevista;
     private StatusProducao status;
-    private List<InsumoProducaoDTO> insumos = new ArrayList<>();
 
-    public ProducaoDTO(Long id, String nomeProducao, LocalDate dataEntrada, int tempoPlantio, int quantidadePrevista, StatusProducao status) {
-        this.id = id;
-        this.nomeProducao = nomeProducao;
-        this.dataEntrada = dataEntrada;
-        this.tempoPlantio = tempoPlantio;
-        this.quantidadePrevista = quantidadePrevista;
-        this.status = status;
-    }
+    private List<InsumoDTO> insumos = new ArrayList<>();
 
     public ProducaoDTO(Producao entity) {
         id = entity.getId();
@@ -42,9 +36,10 @@ public class ProducaoDTO {
         tempoPlantio = entity.getTempoPlantio();
         quantidadePrevista = entity.getQuantidadePrevista();
         status = entity.getStatusProducao();
+
         for (InsumoProducao insumoProducao : entity.getInsumos()) {
-            InsumoProducaoDTO insumosDTO = new InsumoProducaoDTO(insumoProducao);
-            insumos.add(insumosDTO);
+            InsumoDTO insumoDTO = new InsumoDTO(insumoProducao.getInsumo().getId(), insumoProducao.getInsumo().getNome(), insumoProducao.getValor());
+            insumos.add(insumoDTO);
         }
     }
 

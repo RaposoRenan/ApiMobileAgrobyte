@@ -25,6 +25,22 @@ public class InsumoProducaoPK {
     @JoinColumn(name = "producao_id")
     private Producao producao;
 
+    public Insumo getInsumo() {
+        return insumo;
+    }
+
+    public void setInsumo(Insumo insumo) {
+        this.insumo = insumo;
+    }
+
+    public Producao getProducao() {
+        return producao;
+    }
+
+    public void setProducao(Producao producao) {
+        this.producao = producao;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
