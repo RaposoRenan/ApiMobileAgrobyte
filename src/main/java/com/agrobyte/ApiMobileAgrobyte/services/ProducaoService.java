@@ -3,6 +3,7 @@ package com.agrobyte.ApiMobileAgrobyte.services;
 import com.agrobyte.ApiMobileAgrobyte.DTO.InsumoDTO;
 import com.agrobyte.ApiMobileAgrobyte.DTO.InsumoProducaoDTO;
 import com.agrobyte.ApiMobileAgrobyte.DTO.ProducaoDTO;
+import com.agrobyte.ApiMobileAgrobyte.DTO.ProducaoDTOmin;
 import com.agrobyte.ApiMobileAgrobyte.entities.Insumo;
 import com.agrobyte.ApiMobileAgrobyte.entities.InsumoProducao;
 import com.agrobyte.ApiMobileAgrobyte.entities.Producao;
@@ -22,6 +23,8 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class ProducaoService {
@@ -81,5 +84,28 @@ public class ProducaoService {
         catch (DataIntegrityViolationException e) {
             throw new DatabaseException("Falha de integridade referencial");
         }
+    }
+
+    @Transactional
+    public List<ProducaoDTOmin> atualizarStatusDeProducao() {
+        LocalDate dataAtual = LocalDate.now();
+
+        // Buscar todas as produções com status "PLANTIO"
+        List<Producao> producoesEmPlantio = producaoRepository.findByStatusProducao(StatusProducao.PLANTIO);
+
+        List<ProducaoDTOmin> producoesAtualizadas = new ArrayList<>();
+
+        for (Producao producao : producoesEmPlantio) {
+            LocalDate dataPrevistaColheita = producao.getDataEntrada().plusDays(producao.getTempoPlantio());
+
+            // Verifica se a produção já atingiu o tempo de colheita
+            if (dataAtual.isAfter(dataPrevistaColheita) || dataAtual.isEqual(dataPrevistaColheita)) {
+                producao.setStatusProducao(StatusProducao.PRONTO_PARA_COLHEITA);
+                producaoRepository.save(producao);  // Atualiza a produção no banco de dados
+                producoesAtualizadas.add(new ProducaoDTOmin(producao));
+            }
+        }
+
+        return producoesAtualizadas;
     }
 }

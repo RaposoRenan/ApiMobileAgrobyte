@@ -1,7 +1,7 @@
 package com.agrobyte.ApiMobileAgrobyte.controllers;
 
-import com.agrobyte.ApiMobileAgrobyte.DTO.InsumoDTO;
 import com.agrobyte.ApiMobileAgrobyte.DTO.ProducaoDTO;
+import com.agrobyte.ApiMobileAgrobyte.DTO.ProducaoDTOmin;
 import com.agrobyte.ApiMobileAgrobyte.services.ProducaoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("/producao")
@@ -46,4 +47,9 @@ public class ProducaoController {
         return ResponseEntity.noContent().build();
     }
 
+    @PutMapping("/atualizar-status")
+    public ResponseEntity<List<ProducaoDTOmin>> atualizarStatusDeProducoes() {
+        List<ProducaoDTOmin> producoesAtualizadas = service.atualizarStatusDeProducao();
+        return ResponseEntity.ok(producoesAtualizadas);
+    }
 }
