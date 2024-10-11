@@ -72,6 +72,31 @@ public class ProducaoService {
         return new ProducaoDTO(producao);
     }
 
+    @Transactional
+    public ProducaoDTO update(Long id, ProducaoDTO dto){
+        try {
+            Producao producao = producaoRepository.getReferenceById(id);
+
+            producao.setNomeProducao(dto.getNomeProducao());
+            producao.setTempoPlantio(dto.getTempoPlantio());
+            producao.setQuantidadePrevista(dto.getQuantidadePrevista());
+            producao.setDataEntrada(dto.getDataEntrada());
+            producao.setStatusProducao(dto.getStatus());
+
+            for (InsumoDTO insumoDTO : dto.getInsumos()) {
+                Insumo insumo = insumoRepository.getReferenceById(insumoDTO.getId());
+                InsumoProducao insumoProducao = new InsumoProducao(insumo, producao, insumoDTO.getQuantidade(), insumoDTO.getValorUnitario());
+
+                producao.getInsumos().add(insumoProducao);
+            }
+            producaoRepository.save(producao);
+            return new ProducaoDTO(producao);
+        }
+        catch (EntityNotFoundException e){
+            throw new ResourceNotFoundException("Recurso não encontrado");
+        }
+    }
+
 
     @Transactional(propagation = Propagation.SUPPORTS)
     public void delete(Long id){

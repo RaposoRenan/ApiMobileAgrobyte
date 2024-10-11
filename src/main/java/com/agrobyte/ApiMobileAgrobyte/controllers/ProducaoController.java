@@ -1,5 +1,6 @@
 package com.agrobyte.ApiMobileAgrobyte.controllers;
 
+import com.agrobyte.ApiMobileAgrobyte.DTO.InsumoDTO;
 import com.agrobyte.ApiMobileAgrobyte.DTO.ProducaoDTO;
 import com.agrobyte.ApiMobileAgrobyte.DTO.ProducaoDTOmin;
 import com.agrobyte.ApiMobileAgrobyte.services.ProducaoService;
@@ -39,6 +40,12 @@ public class ProducaoController {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(dto.getId()).toUri();
         return ResponseEntity.created(uri).body(dto);
+    }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<ProducaoDTO> update(@PathVariable Long id, @Valid @RequestBody ProducaoDTO dto){
+        dto = service.update(id, dto);
+        return ResponseEntity.ok(dto);
     }
 
     @DeleteMapping(value = "/{id}")
