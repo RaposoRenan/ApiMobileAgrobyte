@@ -15,6 +15,7 @@ public class InsumoDTO {
     private String nome;
     private Double valorUnitario;
     private Integer quantidade;
+    private Double valor;
 
     public InsumoDTO(Long id) {
         this.id = id;
@@ -25,5 +26,6 @@ public class InsumoDTO {
         nome = entity.getNome();
         valorUnitario = entity.getValorUnitario();
         quantidade = getQuantidade();
+        valor = getValor();
     }
 }

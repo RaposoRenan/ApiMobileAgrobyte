@@ -26,7 +26,7 @@ public class InsumoProducao {
         id.setInsumo(insumo);
         id.setProducao(producao);
         this.quantidade = quantidade;
-        this.valor = valor;
+        this.valor = quantidade * getInsumo().getValorUnitario();
     }
 
     public Producao getProducao() {
