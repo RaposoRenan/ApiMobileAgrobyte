@@ -24,5 +24,6 @@ public class InsumoDTO {
         id = entity.getId();
         nome = entity.getNome();
         valorUnitario = entity.getValorUnitario();
+        quantidade = getQuantidade();
     }
 }
