@@ -33,13 +33,17 @@ public class Producao {
     @Enumerated(EnumType.STRING)
     private StatusProducao statusProducao;
 
-
     @OneToMany(mappedBy = "id.producao", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<InsumoProducao> insumos = new ArrayList<>();
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "colheita_id", referencedColumnName = "id")
+    private Colheita colheita;
 
     public List<Insumo> getInsumo(){
         return insumos.stream().map(x -> x.getInsumo()).toList();
     }
+
 
 
 }

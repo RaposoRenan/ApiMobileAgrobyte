@@ -1,6 +1,5 @@
 package com.agrobyte.ApiMobileAgrobyte.controllers;
 
-import com.agrobyte.ApiMobileAgrobyte.DTO.InsumoDTO;
 import com.agrobyte.ApiMobileAgrobyte.DTO.ProducaoDTO;
 import com.agrobyte.ApiMobileAgrobyte.DTO.ProducaoDTOmin;
 import com.agrobyte.ApiMobileAgrobyte.services.ProducaoService;
