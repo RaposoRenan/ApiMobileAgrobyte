@@ -28,9 +28,9 @@ public class ColheitaController {
         return ResponseEntity.ok(dto);
     }
 
-/*    @PostMapping
-    public ResponseEntity<ColheitaDTO> realizarColheita(@Valid @RequestBody ColheitaDTO dto) {
-        dto = service.realizarColheita(dto);
+    @PostMapping("/realizar")
+    public ResponseEntity<ColheitaDTO> realizarColheita(@RequestBody ColheitaDTO colheitaDTO) {
+        ColheitaDTO dto = service.realizarColheita(colheitaDTO);
         return ResponseEntity.ok(dto);
-    }*/
+    }
 }

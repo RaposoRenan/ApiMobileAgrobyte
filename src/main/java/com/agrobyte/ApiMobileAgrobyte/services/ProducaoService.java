@@ -1,13 +1,10 @@
 package com.agrobyte.ApiMobileAgrobyte.services;
 
 import com.agrobyte.ApiMobileAgrobyte.DTO.InsumoDTO;
-import com.agrobyte.ApiMobileAgrobyte.DTO.InsumoProducaoDTO;
 import com.agrobyte.ApiMobileAgrobyte.DTO.ProducaoDTO;
 import com.agrobyte.ApiMobileAgrobyte.DTO.ProducaoDTOmin;
-import com.agrobyte.ApiMobileAgrobyte.entities.Insumo;
-import com.agrobyte.ApiMobileAgrobyte.entities.InsumoProducao;
-import com.agrobyte.ApiMobileAgrobyte.entities.Producao;
-import com.agrobyte.ApiMobileAgrobyte.entities.StatusProducao;
+import com.agrobyte.ApiMobileAgrobyte.entities.*;
+import com.agrobyte.ApiMobileAgrobyte.repositories.ColheitaRepository;
 import com.agrobyte.ApiMobileAgrobyte.repositories.InsumoProducaoRepository;
 import com.agrobyte.ApiMobileAgrobyte.repositories.InsumoRepository;
 import com.agrobyte.ApiMobileAgrobyte.repositories.ProducaoRepository;
@@ -37,6 +34,9 @@ public class ProducaoService {
 
     @Autowired
     private InsumoProducaoRepository insumoProducaoRepository;
+
+    @Autowired
+    private ColheitaRepository colheitaRepository;
 
     @Transactional(readOnly = true)
     public ProducaoDTO findById(Long id){
@@ -115,7 +115,6 @@ public class ProducaoService {
     public List<ProducaoDTOmin> atualizarStatusDeProducao() {
         LocalDate dataAtual = LocalDate.now();
 
-        // Buscar todas as produções com status "PLANTIO"
         List<Producao> producoesEmPlantio = producaoRepository.findByStatusProducao(StatusProducao.PLANTIO);
 
         List<ProducaoDTOmin> producoesAtualizadas = new ArrayList<>();
@@ -123,14 +122,12 @@ public class ProducaoService {
         for (Producao producao : producoesEmPlantio) {
             LocalDate dataPrevistaColheita = producao.getDataEntrada().plusDays(producao.getTempoPlantio());
 
-            // Verifica se a produção já atingiu o tempo de colheita
             if (dataAtual.isAfter(dataPrevistaColheita) || dataAtual.isEqual(dataPrevistaColheita)) {
                 producao.setStatusProducao(StatusProducao.PRONTO_PARA_COLHEITA);
-                producaoRepository.save(producao);  // Atualiza a produção no banco de dados
+                producaoRepository.save(producao);
                 producoesAtualizadas.add(new ProducaoDTOmin(producao));
             }
         }
-
         return producoesAtualizadas;
     }
 }

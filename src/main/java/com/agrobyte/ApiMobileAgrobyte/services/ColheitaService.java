@@ -1,5 +1,6 @@
 package com.agrobyte.ApiMobileAgrobyte.services;
 
+
 import com.agrobyte.ApiMobileAgrobyte.DTO.ColheitaDTO;
 import com.agrobyte.ApiMobileAgrobyte.entities.Colheita;
 import com.agrobyte.ApiMobileAgrobyte.entities.Producao;
@@ -37,38 +38,24 @@ public class ColheitaService {
         return result.map(x -> new ColheitaDTO(x));
     }
 
-/*    @Transactional
+    @Transactional
     public ColheitaDTO realizarColheita(ColheitaDTO dto) {
-        // Buscar a produção pelo ID
         Producao producao = producaoRepository.findById(dto.getId())
-                .orElseThrow(() -> new ResourceNotFoundException("Produção não encontrada para o ID: " + dto.getId()));
+                .orElseThrow(() -> new ResourceNotFoundException("Produção não encontrada"));
 
-        // Verificar se a produção já foi finalizada
-        if (producao.getStatusProducao() == StatusProducao.FINALIZADO) {
-            throw new IllegalArgumentException("A produção já está finalizada.");
-        }
-
-        // Calcular a quantidade colhida
-        int quantidadePrevista = producao.getQuantidadePrevista();
-        int qntdColhida = quantidadePrevista - (dto.getPerdaDoenca() != null ? dto.getPerdaDoenca() : 0) - (dto.getPerdaErro() != null ? dto.getPerdaErro() : 0);
-
-        // Criar uma nova entidade de Colheita
         Colheita colheita = new Colheita();
         colheita.setDataColheita(LocalDate.now());
-        colheita.setPerdaDoenca(dto.getPerdaDoenca() != null ? dto.getPerdaDoenca() : 0);
-        colheita.setPerdaErro(dto.getPerdaErro() != null ? dto.getPerdaErro() : 0);
-        colheita.setQntdColhida(qntdColhida);
+        colheita.setQntdColhida(producao.getQuantidadePrevista() - (dto.getPerdaDoenca() + dto.getPerdaErro()));
+        colheita.setPerdaDoenca(dto.getPerdaDoenca());
+        colheita.setPerdaErro(dto.getPerdaErro());
         colheita.setProducao(producao);
 
-        // Alterar o status da produção para FINALIZADO
+        colheitaRepository.save(colheita);
+
         producao.setStatusProducao(StatusProducao.FINALIZADO);
         producao.setColheita(colheita);
-
-        // Salvar a colheita e a produção no banco de dados
-        colheitaRepository.save(colheita);
         producaoRepository.save(producao);
 
-        // Retornar os dados da colheita como DTO
         return new ColheitaDTO(colheita);
-    }*/
+    }
 }

@@ -22,7 +22,7 @@ public class ColheitaDTO {
 
     public ColheitaDTO(Colheita entity) {
         id = entity.getId();
-        dataColheita = LocalDate.now();
+        dataColheita = entity.getDataColheita();
         qntdColhida = entity.getQntdColhida();
         perdaDoenca = entity.getPerdaDoenca();
         perdaErro = entity.getPerdaErro();
