@@ -1,8 +1,17 @@
 package com.agrobyte.ApiMobileAgrobyte.entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDate;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 
 @Entity
 @Table(name = "tb_colheita")
@@ -16,10 +25,7 @@ public class Colheita {
     private Integer perdaDoenca;
     private Integer perdaErro;
 
-    public Colheita(LocalDate dataColheita, Integer perdaErro, Integer perdaDoenca) {
-        this.dataColheita = dataColheita;
-        this.perdaErro = perdaErro != null ? perdaErro : 0;
-        this.perdaDoenca = perdaDoenca != null ? perdaDoenca : 0;
-        this.qntdColhida = 0;
-    }
+    @OneToOne
+    @JoinColumn(name = "producao_id")
+    private Producao producao;
 }

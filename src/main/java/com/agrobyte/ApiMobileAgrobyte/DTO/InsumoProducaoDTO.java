@@ -27,8 +27,4 @@ public class InsumoProducaoDTO {
         valor = entity.getValor();
         quantidade = entity.getQuantidade();
     }
-
-    public Double getSubTotal() {
-        return valor * quantidade;
-    }
 }

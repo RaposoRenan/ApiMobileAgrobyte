@@ -43,7 +43,4 @@ public class Producao {
     public List<Insumo> getInsumo(){
         return insumos.stream().map(x -> x.getInsumo()).toList();
     }
-
-
-
 }
