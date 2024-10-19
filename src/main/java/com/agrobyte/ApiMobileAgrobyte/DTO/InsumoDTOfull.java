@@ -17,8 +17,8 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class InsumoDTOfull {
-    private Long id;
 
+    private Long id;
     private String nome;
     private String descricao;
     private Double valorUnitario;
