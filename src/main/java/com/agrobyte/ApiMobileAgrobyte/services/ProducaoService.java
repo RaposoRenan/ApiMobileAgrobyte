@@ -1,6 +1,6 @@
 package com.agrobyte.ApiMobileAgrobyte.services;
 
-import com.agrobyte.ApiMobileAgrobyte.DTO.InsumoDTO;
+import com.agrobyte.ApiMobileAgrobyte.DTO.InsumoDTOmid;
 import com.agrobyte.ApiMobileAgrobyte.DTO.ProducaoDTO;
 import com.agrobyte.ApiMobileAgrobyte.DTO.ProducaoDTOmin;
 import com.agrobyte.ApiMobileAgrobyte.entities.*;
@@ -61,7 +61,7 @@ public class ProducaoService {
         producao.setDataEntrada(LocalDate.now());
         producao.setStatusProducao(StatusProducao.PLANTIO);
 
-        for (InsumoDTO insumoDTO : dto.getInsumos()) {
+        for (InsumoDTOmid insumoDTO : dto.getInsumos()) {
             Insumo insumo = insumoRepository.getReferenceById(insumoDTO.getId());
             InsumoProducao insumoProducao = new InsumoProducao(insumo, producao, insumoDTO.getQuantidade(), insumoDTO.getValorUnitario());
 
@@ -83,7 +83,7 @@ public class ProducaoService {
             producao.setDataEntrada(dto.getDataEntrada());
             producao.setStatusProducao(dto.getStatus());
 
-            for (InsumoDTO insumoDTO : dto.getInsumos()) {
+            for (InsumoDTOmid insumoDTO : dto.getInsumos()) {
                 Insumo insumo = insumoRepository.getReferenceById(insumoDTO.getId());
                 InsumoProducao insumoProducao = new InsumoProducao(insumo, producao, insumoDTO.getQuantidade(), insumoDTO.getValorUnitario());
 

@@ -10,18 +10,18 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class InsumoDTO {
+public class InsumoDTOmid {
     private Long id;
     private String nome;
     private Double valorUnitario;
     private Integer quantidade;
     private Double valor;
 
-    public InsumoDTO(Long id) {
+    public InsumoDTOmid(Long id) {
         this.id = id;
     }
 
-    public InsumoDTO(Insumo entity){
+    public InsumoDTOmid(Insumo entity){
         id = entity.getId();
         nome = entity.getNome();
         valorUnitario = entity.getValorUnitario();

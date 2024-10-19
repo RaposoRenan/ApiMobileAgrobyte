@@ -1,6 +1,7 @@
 package com.agrobyte.ApiMobileAgrobyte.services;
 
-import com.agrobyte.ApiMobileAgrobyte.DTO.InsumoDTO;
+import com.agrobyte.ApiMobileAgrobyte.DTO.InsumoDTOfull;
+import com.agrobyte.ApiMobileAgrobyte.DTO.InsumoDTOmid;
 import com.agrobyte.ApiMobileAgrobyte.entities.Insumo;
 import com.agrobyte.ApiMobileAgrobyte.repositories.InsumoRepository;
 import com.agrobyte.ApiMobileAgrobyte.services.exception.DatabaseException;
@@ -20,43 +21,47 @@ public class InsumoService {
     private InsumoRepository repository;
 
     @Transactional(readOnly = true)
-    public InsumoDTO findById(Long id){
+    public InsumoDTOmid findById(Long id){
         Insumo insumo = repository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Recurso não encontrado"));
-        return new InsumoDTO(insumo);
+        return new InsumoDTOmid(insumo);
     }
 
     @Transactional(readOnly = true)
-    public Page<InsumoDTO> findAll(Pageable pageable){
+    public Page<InsumoDTOmid> findAll(Pageable pageable){
         Page<Insumo> result = repository.findAll(pageable);
-        return result.map(x -> new InsumoDTO(x));
+        return result.map(x -> new InsumoDTOmid(x));
     }
 
     @Transactional
-    public InsumoDTO insert(InsumoDTO dto){
+    public InsumoDTOfull insert(InsumoDTOfull dto){
 
         Insumo entity = new Insumo();
         copyDtoToEntity(dto, entity);
         entity = repository.save(entity);
-        return new InsumoDTO(entity);
+        return new InsumoDTOfull(entity);
     }
 
     @Transactional
-    public InsumoDTO update(Long id, InsumoDTO dto){
+    public InsumoDTOfull update(Long id, InsumoDTOfull dto){
         try {
             Insumo entity = repository.getReferenceById(id);
             copyDtoToEntity(dto, entity);
             entity = repository.save(entity);
-            return new InsumoDTO(entity);
+            return new InsumoDTOfull(entity);
         }
         catch (EntityNotFoundException e){
             throw new ResourceNotFoundException("Recurso não encontrado");
         }
     }
 
-    private void copyDtoToEntity(InsumoDTO dto, Insumo entity) {
+    private void copyDtoToEntity(InsumoDTOfull dto, Insumo entity) {
         entity.setNome(dto.getNome());
+        entity.setDescricao(dto.getDescricao());
         entity.setValorUnitario(dto.getValorUnitario());
+        entity.setQuantidadeEstoque(dto.getQuantidadeEstoque());
+        entity.setDataValidade(dto.getDataValidade());
+        entity.setCategoria(dto.getCategoria());
     }
 
     @Transactional(propagation = Propagation.SUPPORTS)

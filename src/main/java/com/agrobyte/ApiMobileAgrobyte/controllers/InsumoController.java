@@ -1,6 +1,7 @@
 package com.agrobyte.ApiMobileAgrobyte.controllers;
 
-import com.agrobyte.ApiMobileAgrobyte.DTO.InsumoDTO;
+import com.agrobyte.ApiMobileAgrobyte.DTO.InsumoDTOfull;
+import com.agrobyte.ApiMobileAgrobyte.DTO.InsumoDTOmid;
 import com.agrobyte.ApiMobileAgrobyte.services.InsumoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,19 +21,19 @@ public class InsumoController {
     private InsumoService service;
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<InsumoDTO> findById(@PathVariable Long id){
-        InsumoDTO dto = service.findById(id);
+    public ResponseEntity<InsumoDTOmid> findById(@PathVariable Long id){
+        InsumoDTOmid dto = service.findById(id);
         return ResponseEntity.ok(dto);
     }
 
     @GetMapping
-    public ResponseEntity<Page<InsumoDTO>> findAll(Pageable pageable){
-        Page<InsumoDTO> dto = service.findAll(pageable);
+    public ResponseEntity<Page<InsumoDTOmid>> findAll(Pageable pageable){
+        Page<InsumoDTOmid> dto = service.findAll(pageable);
         return ResponseEntity.ok(dto);
     }
 
     @PostMapping
-    public ResponseEntity<InsumoDTO> insert(@Valid @RequestBody InsumoDTO dto) {
+    public ResponseEntity<InsumoDTOfull> insert(@Valid @RequestBody InsumoDTOfull dto) {
         dto = service.insert(dto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(dto.getId()).toUri();
@@ -40,7 +41,7 @@ public class InsumoController {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<InsumoDTO> update(@PathVariable Long id, @Valid @RequestBody InsumoDTO dto){
+    public ResponseEntity<InsumoDTOfull> update(@PathVariable Long id, @Valid @RequestBody InsumoDTOfull dto){
         dto = service.update(id, dto);
         return ResponseEntity.ok(dto);
     }

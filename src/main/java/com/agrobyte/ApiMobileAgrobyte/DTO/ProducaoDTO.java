@@ -27,7 +27,7 @@ public class ProducaoDTO {
     private int quantidadePrevista;
     private StatusProducao status;
 
-    private List<InsumoDTO> insumos = new ArrayList<>();
+    private List<InsumoDTOmid> insumos = new ArrayList<>();
 
     public ProducaoDTO(Producao entity) {
         id = entity.getId();
@@ -38,7 +38,7 @@ public class ProducaoDTO {
         status = entity.getStatusProducao();
 
         for (InsumoProducao insumoProducao : entity.getInsumos()) {
-            InsumoDTO insumoDTO = new InsumoDTO(insumoProducao.getInsumo().getId(), insumoProducao.getInsumo().getNome(), insumoProducao.getInsumo().getValorUnitario(), insumoProducao.getQuantidade(), insumoProducao.getValor());
+            InsumoDTOmid insumoDTO = new InsumoDTOmid(insumoProducao.getInsumo().getId(), insumoProducao.getInsumo().getNome(), insumoProducao.getInsumo().getValorUnitario(), insumoProducao.getQuantidade(), insumoProducao.getValor());
             insumos.add(insumoDTO);
         }
     }
