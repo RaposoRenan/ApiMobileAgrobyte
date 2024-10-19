@@ -2,6 +2,7 @@ package com.agrobyte.ApiMobileAgrobyte.controllers;
 
 import com.agrobyte.ApiMobileAgrobyte.DTO.InsumoDTOfull;
 import com.agrobyte.ApiMobileAgrobyte.DTO.InsumoDTOmid;
+import com.agrobyte.ApiMobileAgrobyte.DTO.InsumoDTOmin;
 import com.agrobyte.ApiMobileAgrobyte.services.InsumoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,14 +22,14 @@ public class InsumoController {
     private InsumoService service;
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<InsumoDTOmid> findById(@PathVariable Long id){
-        InsumoDTOmid dto = service.findById(id);
+    public ResponseEntity<InsumoDTOfull> findById(@PathVariable Long id){
+        InsumoDTOfull dto = service.findById(id);
         return ResponseEntity.ok(dto);
     }
 
     @GetMapping
-    public ResponseEntity<Page<InsumoDTOmid>> findAll(Pageable pageable){
-        Page<InsumoDTOmid> dto = service.findAll(pageable);
+    public ResponseEntity<Page<InsumoDTOfull>> findAll(Pageable pageable){
+        Page<InsumoDTOfull> dto = service.findAll(pageable);
         return ResponseEntity.ok(dto);
     }
 

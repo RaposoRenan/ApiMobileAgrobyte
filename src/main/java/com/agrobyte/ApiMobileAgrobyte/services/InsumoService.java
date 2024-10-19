@@ -1,7 +1,6 @@
 package com.agrobyte.ApiMobileAgrobyte.services;
 
 import com.agrobyte.ApiMobileAgrobyte.DTO.InsumoDTOfull;
-import com.agrobyte.ApiMobileAgrobyte.DTO.InsumoDTOmid;
 import com.agrobyte.ApiMobileAgrobyte.entities.Insumo;
 import com.agrobyte.ApiMobileAgrobyte.repositories.InsumoRepository;
 import com.agrobyte.ApiMobileAgrobyte.services.exception.DatabaseException;
@@ -21,16 +20,16 @@ public class InsumoService {
     private InsumoRepository repository;
 
     @Transactional(readOnly = true)
-    public InsumoDTOmid findById(Long id){
+    public InsumoDTOfull findById(Long id){
         Insumo insumo = repository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Recurso não encontrado"));
-        return new InsumoDTOmid(insumo);
+        return new InsumoDTOfull(insumo);
     }
 
     @Transactional(readOnly = true)
-    public Page<InsumoDTOmid> findAll(Pageable pageable){
+    public Page<InsumoDTOfull> findAll(Pageable pageable){
         Page<Insumo> result = repository.findAll(pageable);
-        return result.map(x -> new InsumoDTOmid(x));
+        return result.map(x -> new InsumoDTOfull(x));
     }
 
     @Transactional
