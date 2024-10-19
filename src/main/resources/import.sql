@@ -1,13 +1,13 @@
-INSERT INTO tb_insumo(nome, valor_unitario) VALUES ('Adubo Orgânico', 30.50);
-INSERT INTO tb_insumo(nome, valor_unitario) VALUES ('Semente de Milho', 120.00);
-INSERT INTO tb_insumo(nome, valor_unitario) VALUES ('Fertilizante Químico', 45.75);
-INSERT INTO tb_insumo(nome, valor_unitario) VALUES ('Herbicida', 85.90);
-INSERT INTO tb_insumo(nome, valor_unitario) VALUES ('Inseticida', 60.00);
-INSERT INTO tb_insumo(nome, valor_unitario) VALUES ('Pesticida', 70.50);
-INSERT INTO tb_insumo(nome, valor_unitario) VALUES ('Semente de Trigo', 150.00);
-INSERT INTO tb_insumo(nome, valor_unitario) VALUES ('Irrigação por Gotejamento', 300.00);
-INSERT INTO tb_insumo(nome, valor_unitario) VALUES ('Calcário', 55.00);
-INSERT INTO tb_insumo(nome, valor_unitario) VALUES ('Semente de Soja', 180.00);
+INSERT INTO tb_insumo(nome, descricao, valor_unitario, quantidade_estoque, data_validade, categoria) VALUES ('Adubo Orgânico', 'Descrição do Adubo Orgânico', 30.50, 1000, '2025-10-17', 'INSUMO');
+INSERT INTO tb_insumo(nome, descricao, valor_unitario, quantidade_estoque, data_validade, categoria) VALUES ('Semente de Milho', 'Drescição da Semente de Milho', 120.00, 1000, '2025-10-17', 'INSUMO');
+INSERT INTO tb_insumo(nome, descricao, valor_unitario, quantidade_estoque, data_validade, categoria) VALUES ('Fertilizante Químico', 'Drescição do Fertilizante Químico', 45.75, 1000, '2025-10-17', 'INSUMO');
+INSERT INTO tb_insumo(nome, descricao, valor_unitario, quantidade_estoque, data_validade, categoria) VALUES ('Herbicida', 'Descrição do Herbicida', 85.90, 1000, '2025-10-17', 'INSUMO');
+INSERT INTO tb_insumo(nome, descricao, valor_unitario, quantidade_estoque, data_validade, categoria) VALUES ('Inseticida', 'Drescrição do Inseticida', 60.00, 1000, '2025-10-17', 'INSUMO');
+INSERT INTO tb_insumo(nome, descricao, valor_unitario, quantidade_estoque, data_validade, categoria) VALUES ('Pesticida', 'Drescrição do Pesticida', 70.50, 1000, '2025-10-17', 'INSUMO');
+INSERT INTO tb_insumo(nome, descricao, valor_unitario, quantidade_estoque, data_validade, categoria) VALUES ('Semente de Trigo', 'Descrição da Semente de Trigo', 150.00, 1000, '2025-10-17', 'INSUMO');
+INSERT INTO tb_insumo(nome, descricao, valor_unitario, quantidade_estoque, data_validade, categoria) VALUES ('Irrigação por Gotejamento', 'Descrição da Irrigação por Gotejamento', 300.00, 1000, '2025-10-17', 'INSUMO');
+INSERT INTO tb_insumo(nome, descricao, valor_unitario, quantidade_estoque, data_validade, categoria) VALUES ('Calcário', 'Drescrição de Calcário', 55.00, 1000, '2025-10-17', 'INSUMO');
+INSERT INTO tb_insumo(nome, descricao, valor_unitario, quantidade_estoque, data_validade, categoria) VALUES ('Semente de Soja', 'Descrição da Semente de Soja', 180.00, 1000, '2025-10-17', 'INSUMO');
 
 INSERT INTO tb_producao(nome_producao, data_entrada, tempo_plantio, status_producao, quantidade_prevista) VALUES ('Milho Safra', '2024-01-01', 90, 'PLANTIO', 100);
 INSERT INTO tb_producao(nome_producao, data_entrada, tempo_plantio, status_producao, quantidade_prevista) VALUES ('Soja Safra', '2024-02-01', 60, 'PLANTIO', 150);
