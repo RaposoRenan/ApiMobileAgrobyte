@@ -1,6 +1,7 @@
 package com.agrobyte.ApiMobileAgrobyte.entities;
 
 import jakarta.persistence.*;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -37,5 +38,9 @@ public class Insumo {
 
     public List<Producao> getProducao() {
         return insumos.stream().map(x -> x.getProducao()).toList();
+    }
+
+    public void atualizarEstoque (Integer quantidade){
+        this.quantidadeEstoque -= quantidade;
     }
 }
