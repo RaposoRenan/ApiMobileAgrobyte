@@ -1,46 +1,46 @@
 package com.agrobyte.ApiMobileAgrobyte.entities;
 
 import jakarta.persistence.*;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+import java.time.LocalDate;
+import java.util.*;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "tb_insumo")
 public class Insumo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String nomeInsumo;
+
+    private String nome;
+
+    @Column(columnDefinition = "TEXT")
+    private String descricao;
+
     private Double valorUnitario;
+    private Integer quantidadeEstoque;
+    private LocalDate dataValidade;
 
-    public Insumo() {
+    @Enumerated(EnumType.STRING)
+    private Categoria categoria;
+
+    @OneToMany(mappedBy = "id.insumo")
+    private Set<InsumoProducao> insumos = new HashSet<>();
+
+    public List<Producao> getProducao() {
+        return insumos.stream().map(x -> x.getProducao()).toList();
     }
 
-    public Insumo(Long id, String nomeInsumo, Double valorUnitario) {
-        this.id = id;
-        this.nomeInsumo = nomeInsumo;
-        this.valorUnitario = valorUnitario;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getNomeInsumo() {
-        return nomeInsumo;
-    }
-
-    public void setNomeInsumo(String nomeInsumo) {
-        this.nomeInsumo = nomeInsumo;
-    }
-
-    public Double getValorUnitario() {
-        return valorUnitario;
-    }
-
-    public void setValorUnitario(Double valorUnitario) {
-        this.valorUnitario = valorUnitario;
+    public void atualizarEstoque (Integer quantidade){
+        this.quantidadeEstoque -= quantidade;
     }
 }

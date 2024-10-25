@@ -1,9 +1,17 @@
 package com.agrobyte.ApiMobileAgrobyte.entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import java.util.Date;
+import java.util.Objects;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "tb_insumo_producao")
 public class InsumoProducao {
@@ -11,26 +19,14 @@ public class InsumoProducao {
     @EmbeddedId
     private InsumoProducaoPK id = new InsumoProducaoPK();
 
-    private int quantidade;
-    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
-    private Date dataSaida;
+    private Integer quantidade;
+    private Double valor;
 
-    public InsumoProducao() {
-    }
-
-    public InsumoProducao(Insumo insumo, Producao producao, int quantidade, Date dataSaida) {
+    public InsumoProducao(Insumo insumo, Producao producao, Integer quantidade, Double valor) {
         id.setInsumo(insumo);
         id.setProducao(producao);
         this.quantidade = quantidade;
-        this.dataSaida = dataSaida;
-    }
-
-    public Insumo getInsumo() {
-        return id.getInsumo();
-    }
-
-    public void setInsumo(Insumo insumo) {
-        id.setInsumo(insumo);
+        this.valor = quantidade * getInsumo().getValorUnitario();
     }
 
     public Producao getProducao() {
@@ -41,19 +37,25 @@ public class InsumoProducao {
         id.setProducao(producao);
     }
 
-    public int getQuantidade() {
-        return quantidade;
+    public Insumo getInsumo() {
+        return id.getInsumo();
     }
 
-    public void setQuantidade(int quantidade) {
-        this.quantidade = quantidade;
+    public void setInsumo(Insumo insumo) {
+        id.setInsumo(insumo);
     }
 
-    public Date getDataSaida() {
-        return dataSaida;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        InsumoProducao that = (InsumoProducao) o;
+        return Objects.equals(id, that.id);
     }
 
-    public void setDataSaida(Date dataSaida) {
-        this.dataSaida = dataSaida;
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
     }
 }
