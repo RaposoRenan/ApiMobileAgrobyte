@@ -20,7 +20,7 @@ public class ProdutoDTO {
         this.id = id;
     }
 
-    public ProdutoDTO(Produto entity){
+    public ProdutoDTO(Produto entity) {
         id = entity.getId();
         nome = entity.getNome();
         valorUnitario = entity.getValorUnitario();

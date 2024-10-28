@@ -3,9 +3,11 @@ package com.agrobyte.ApiMobileAgrobyte.services;
 import com.agrobyte.ApiMobileAgrobyte.DTO.ColheitaDTO;
 import com.agrobyte.ApiMobileAgrobyte.entities.Colheita;
 import com.agrobyte.ApiMobileAgrobyte.entities.Producao;
+import com.agrobyte.ApiMobileAgrobyte.entities.Produto;
 import com.agrobyte.ApiMobileAgrobyte.entities.StatusProducao;
 import com.agrobyte.ApiMobileAgrobyte.repositories.ColheitaRepository;
 import com.agrobyte.ApiMobileAgrobyte.repositories.ProducaoRepository;
+import com.agrobyte.ApiMobileAgrobyte.repositories.ProdutoRepository;
 import com.agrobyte.ApiMobileAgrobyte.services.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -23,6 +25,9 @@ public class ColheitaService {
 
     @Autowired
     private ProducaoRepository producaoRepository;
+
+    @Autowired
+    private ProdutoRepository produtoRepository;
 
     @Transactional(readOnly = true)
     public ColheitaDTO findById(Long id){
@@ -53,8 +58,14 @@ public class ColheitaService {
 
         producao.setStatusProducao(StatusProducao.FINALIZADO);
         producao.setColheita(colheita);
-        producaoRepository.save(producao);
 
+        Produto produto = producao.getProduto();
+        if (produto != null) {
+            produto.setQuantidadeEstoque(produto.getQuantidadeEstoque() + colheita.getQntdColhida());
+            produtoRepository.save(produto); // Salva o produto atualizado no repositório
+        }
+
+        producaoRepository.save(producao);
         return new ColheitaDTO(colheita);
     }
 }

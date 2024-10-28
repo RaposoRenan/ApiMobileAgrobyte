@@ -2,7 +2,6 @@ package com.agrobyte.ApiMobileAgrobyte.DTO;
 
 import com.agrobyte.ApiMobileAgrobyte.entities.InsumoProducao;
 import com.agrobyte.ApiMobileAgrobyte.entities.Producao;
-import com.agrobyte.ApiMobileAgrobyte.entities.Produto;
 import com.agrobyte.ApiMobileAgrobyte.entities.StatusProducao;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
@@ -22,15 +21,25 @@ import java.util.List;
 public class ProducaoDTO {
 
     private Long id;
+
+    @NotBlank(message = "O nome da produção é obrigatório")
     private String nomeProducao;
+
     private LocalDate dataEntrada;
+
+    @Positive(message = "O tempo de plantio deve ser positivo")
     private int tempoPlantio;
+
+    @Positive(message = "A quantidade prevista deve ser positiva")
     private int quantidadePrevista;
+
     private StatusProducao status;
-    private Produto produto = new Produto();
+
+    private ProdutoDTO produto;
 
     private List<InsumoDTOmid> insumos = new ArrayList<>();
 
+    // Construtor que recebe uma entidade Producao
     public ProducaoDTO(Producao entity) {
         id = entity.getId();
         nomeProducao = entity.getNomeProducao();
@@ -38,26 +47,22 @@ public class ProducaoDTO {
         tempoPlantio = entity.getTempoPlantio();
         quantidadePrevista = entity.getQuantidadePrevista();
         status = entity.getStatusProducao();
-        produto = entity.getProduto();
 
-        for (InsumoProducao insumoProducao : entity.getInsumos()) {
-            InsumoDTOmid insumoDTO = new InsumoDTOmid(insumoProducao.getInsumo().getId(), insumoProducao.getInsumo().getNome(), insumoProducao.getInsumo().getValorUnitario(), insumoProducao.getQuantidade(), insumoProducao.getValor());
-            insumos.add(insumoDTO);
+        // Mapeamento do produto associado
+        if (entity.getProduto() != null) {
+            this.produto = new ProdutoDTO(entity.getProduto());
         }
-    }
 
-    @NotBlank(message = "Campo requerido")
-    public String getNomeProducao() {
-        return nomeProducao;
-    }
-
-    @Positive(message = "Quantidade tem que ser positiva")
-    public int getTempoPlantio() {
-        return tempoPlantio;
-    }
-
-    @Positive(message = "Quantidade tem que ser positiva")
-    public int getQuantidadePrevista() {
-        return quantidadePrevista;
+        // Mapeamento dos insumos associados
+        for (InsumoProducao insumoProducao : entity.getInsumos()) {
+            InsumoDTOmid insumoDTO = new InsumoDTOmid(
+                    insumoProducao.getInsumo().getId(),
+                    insumoProducao.getInsumo().getNome(),
+                    insumoProducao.getInsumo().getValorUnitario(),
+                    insumoProducao.getQuantidade(),
+                    insumoProducao.getValor()
+            );
+            this.insumos.add(insumoDTO);
+        }
     }
 }

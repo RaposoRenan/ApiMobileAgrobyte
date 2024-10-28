@@ -56,7 +56,10 @@ public class ProducaoService {
     public ProducaoDTO insert(ProducaoDTO dto) {
         Producao producao = new Producao();
 
-        producao.setProduto(dto.getProduto());
+        Produto produto = produtoRepository.findById(dto.getProduto().getId())
+                .orElseThrow(() -> new ResourceNotFoundException("Produto não encontrado"));
+
+        producao.setProduto(produto);
         producao.setNomeProducao(dto.getNomeProducao());
         producao.setTempoPlantio(dto.getTempoPlantio());
         producao.setQuantidadePrevista(dto.getQuantidadePrevista());
@@ -80,7 +83,6 @@ public class ProducaoService {
         try {
             Producao producao = producaoRepository.getReferenceById(id);
 
-            producao.setProduto(dto.getProduto());
             producao.setNomeProducao(dto.getNomeProducao());
             producao.setTempoPlantio(dto.getTempoPlantio());
             producao.setQuantidadePrevista(dto.getQuantidadePrevista());
