@@ -1,31 +1,28 @@
 package com.agrobyte.ApiMobileAgrobyte.DTO;
 
-import com.agrobyte.ApiMobileAgrobyte.entities.Insumo;
+import com.agrobyte.ApiMobileAgrobyte.entities.Produto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
-
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class InsumoDTOfull {
+public class ProdutoDTO {
 
     private Long id;
     private String nome;
-    private String descricao;
     private Double valorUnitario;
-    private Integer quantidadeEstoque;
-    private LocalDate dataValidade;
 
-    public InsumoDTOfull(Insumo entity){
+    public ProdutoDTO(Long id) {
+        this.id = id;
+    }
+
+    public ProdutoDTO(Produto entity){
         id = entity.getId();
         nome = entity.getNome();
         valorUnitario = entity.getValorUnitario();
-        quantidadeEstoque = entity.getQuantidadeEstoque();
-        dataValidade = entity.getDataValidade();
     }
 }

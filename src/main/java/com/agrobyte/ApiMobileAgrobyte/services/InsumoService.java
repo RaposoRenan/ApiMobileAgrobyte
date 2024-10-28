@@ -56,11 +56,9 @@ public class InsumoService {
 
     private void copyDtoToEntity(InsumoDTOfull dto, Insumo entity) {
         entity.setNome(dto.getNome());
-        entity.setDescricao(dto.getDescricao());
         entity.setValorUnitario(dto.getValorUnitario());
         entity.setQuantidadeEstoque(dto.getQuantidadeEstoque());
         entity.setDataValidade(dto.getDataValidade());
-        entity.setCategoria(dto.getCategoria());
     }
 
     @Transactional(propagation = Propagation.SUPPORTS)

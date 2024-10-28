@@ -2,6 +2,7 @@ package com.agrobyte.ApiMobileAgrobyte.DTO;
 
 import com.agrobyte.ApiMobileAgrobyte.entities.InsumoProducao;
 import com.agrobyte.ApiMobileAgrobyte.entities.Producao;
+import com.agrobyte.ApiMobileAgrobyte.entities.Produto;
 import com.agrobyte.ApiMobileAgrobyte.entities.StatusProducao;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
@@ -26,6 +27,7 @@ public class ProducaoDTO {
     private int tempoPlantio;
     private int quantidadePrevista;
     private StatusProducao status;
+    private Produto produto = new Produto();
 
     private List<InsumoDTOmid> insumos = new ArrayList<>();
 
@@ -36,6 +38,7 @@ public class ProducaoDTO {
         tempoPlantio = entity.getTempoPlantio();
         quantidadePrevista = entity.getQuantidadePrevista();
         status = entity.getStatusProducao();
+        produto = entity.getProduto();
 
         for (InsumoProducao insumoProducao : entity.getInsumos()) {
             InsumoDTOmid insumoDTO = new InsumoDTOmid(insumoProducao.getInsumo().getId(), insumoProducao.getInsumo().getNome(), insumoProducao.getInsumo().getValorUnitario(), insumoProducao.getQuantidade(), insumoProducao.getValor());
