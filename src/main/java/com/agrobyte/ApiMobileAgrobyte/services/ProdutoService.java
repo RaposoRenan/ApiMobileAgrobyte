@@ -1,8 +1,8 @@
 package com.agrobyte.ApiMobileAgrobyte.services;
 
-import com.agrobyte.ApiMobileAgrobyte.DTO.InsumoDTOfull;
-import com.agrobyte.ApiMobileAgrobyte.entities.Insumo;
-import com.agrobyte.ApiMobileAgrobyte.repositories.InsumoRepository;
+import com.agrobyte.ApiMobileAgrobyte.DTO.ProdutoDTOfull;
+import com.agrobyte.ApiMobileAgrobyte.entities.Produto;
+import com.agrobyte.ApiMobileAgrobyte.repositories.ProdutoRepository;
 import com.agrobyte.ApiMobileAgrobyte.services.exception.DatabaseException;
 import com.agrobyte.ApiMobileAgrobyte.services.exception.ResourceNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
@@ -15,46 +15,46 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class InsumoService {
+public class ProdutoService {
     @Autowired
-    private InsumoRepository repository;
+    private ProdutoRepository repository;
 
     @Transactional(readOnly = true)
-    public InsumoDTOfull findById(Long id){
-        Insumo insumo = repository.findById(id).orElseThrow(
+    public ProdutoDTOfull findById(Long id){
+        Produto produto = repository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Recurso não encontrado"));
-        return new InsumoDTOfull(insumo);
+        return new ProdutoDTOfull(produto);
     }
 
     @Transactional(readOnly = true)
-    public Page<InsumoDTOfull> findAll(Pageable pageable){
-        Page<Insumo> result = repository.findAll(pageable);
-        return result.map(x -> new InsumoDTOfull(x));
+    public Page<ProdutoDTOfull> findAll(Pageable pageable){
+        Page<Produto> result = repository.findAll(pageable);
+        return result.map(x -> new ProdutoDTOfull(x));
     }
 
     @Transactional
-    public InsumoDTOfull insert(InsumoDTOfull dto){
+    public ProdutoDTOfull insert(ProdutoDTOfull dto){
 
-        Insumo entity = new Insumo();
+        Produto entity = new Produto();
         copyDtoToEntity(dto, entity);
         entity = repository.save(entity);
-        return new InsumoDTOfull(entity);
+        return new ProdutoDTOfull(entity);
     }
 
     @Transactional
-    public InsumoDTOfull update(Long id, InsumoDTOfull dto){
+    public ProdutoDTOfull update(Long id, ProdutoDTOfull dto){
         try {
-            Insumo entity = repository.getReferenceById(id);
+            Produto entity = repository.getReferenceById(id);
             copyDtoToEntity(dto, entity);
             entity = repository.save(entity);
-            return new InsumoDTOfull(entity);
+            return new ProdutoDTOfull(entity);
         }
         catch (EntityNotFoundException e){
             throw new ResourceNotFoundException("Recurso não encontrado");
         }
     }
 
-    private void copyDtoToEntity(InsumoDTOfull dto, Insumo entity) {
+    private void copyDtoToEntity(ProdutoDTOfull dto, Produto entity) {
         entity.setNome(dto.getNome());
         entity.setValorUnitario(dto.getValorUnitario());
         entity.setQuantidadeEstoque(dto.getQuantidadeEstoque());

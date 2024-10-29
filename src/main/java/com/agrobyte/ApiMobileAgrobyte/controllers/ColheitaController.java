@@ -5,11 +5,12 @@ import com.agrobyte.ApiMobileAgrobyte.services.ColheitaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
 @RequestMapping(value = "/colheita")
 public class ColheitaController {
 
@@ -29,8 +30,8 @@ public class ColheitaController {
     }
 
     @PostMapping("/realizar")
-    public ResponseEntity<ColheitaDTO> realizarColheita(@RequestBody ColheitaDTO colheitaDTO) {
-        ColheitaDTO dto = service.realizarColheita(colheitaDTO);
-        return ResponseEntity.ok(dto);
+    @ResponseStatus(HttpStatus.CREATED)
+    public ColheitaDTO realizarColheita(@RequestBody ColheitaDTO colheitaDTO) {
+        return service.realizarColheita(colheitaDTO);
     }
 }

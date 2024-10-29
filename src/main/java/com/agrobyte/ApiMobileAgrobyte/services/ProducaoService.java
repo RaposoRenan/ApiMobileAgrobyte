@@ -3,11 +3,9 @@ package com.agrobyte.ApiMobileAgrobyte.services;
 import com.agrobyte.ApiMobileAgrobyte.DTO.InsumoDTOmid;
 import com.agrobyte.ApiMobileAgrobyte.DTO.ProducaoDTO;
 import com.agrobyte.ApiMobileAgrobyte.DTO.ProducaoDTOmin;
+import com.agrobyte.ApiMobileAgrobyte.DTO.ProdutoDTO;
 import com.agrobyte.ApiMobileAgrobyte.entities.*;
-import com.agrobyte.ApiMobileAgrobyte.repositories.ColheitaRepository;
-import com.agrobyte.ApiMobileAgrobyte.repositories.InsumoProducaoRepository;
-import com.agrobyte.ApiMobileAgrobyte.repositories.InsumoRepository;
-import com.agrobyte.ApiMobileAgrobyte.repositories.ProducaoRepository;
+import com.agrobyte.ApiMobileAgrobyte.repositories.*;
 import com.agrobyte.ApiMobileAgrobyte.services.exception.DatabaseException;
 import com.agrobyte.ApiMobileAgrobyte.services.exception.ResourceNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
@@ -36,6 +34,9 @@ public class ProducaoService {
     private InsumoProducaoRepository insumoProducaoRepository;
 
     @Autowired
+    private ProdutoRepository produtoRepository;
+
+    @Autowired
     private ColheitaRepository colheitaRepository;
 
     @Transactional(readOnly = true)
@@ -55,6 +56,10 @@ public class ProducaoService {
     public ProducaoDTO insert(ProducaoDTO dto) {
         Producao producao = new Producao();
 
+        Produto produto = produtoRepository.findById(dto.getProduto().getId())
+                .orElseThrow(() -> new ResourceNotFoundException("Produto não encontrado"));
+
+        producao.setProduto(produto);
         producao.setNomeProducao(dto.getNomeProducao());
         producao.setTempoPlantio(dto.getTempoPlantio());
         producao.setQuantidadePrevista(dto.getQuantidadePrevista());
@@ -63,9 +68,6 @@ public class ProducaoService {
 
         for (InsumoDTOmid insumoDTO : dto.getInsumos()) {
             Insumo insumo = insumoRepository.getReferenceById(insumoDTO.getId());
-            if (!insumo.getCategoria().equals(Categoria.INSUMO)){
-                throw new ResourceNotFoundException("Insumo incorreto!");
-            }
             InsumoProducao insumoProducao = new InsumoProducao(insumo, producao, insumoDTO.getQuantidade(), insumoDTO.getValorUnitario());
             insumo.atualizarEstoque(insumoProducao.getQuantidade());
             producao.getInsumos().add(insumoProducao);
@@ -88,7 +90,9 @@ public class ProducaoService {
             producao.setStatusProducao(dto.getStatus());
 
             for (InsumoDTOmid insumoDTO : dto.getInsumos()) {
-                Insumo insumo = insumoRepository.getReferenceById(insumoDTO.getId());
+                Insumo insumo = insumoRepository.findById(insumoDTO.getId())
+                        .orElseThrow(() -> new ResourceNotFoundException("Insumo não encontrado com ID: " + insumoDTO.getId()));
+
                 InsumoProducao insumoProducao = new InsumoProducao(insumo, producao, insumoDTO.getQuantidade(), insumoDTO.getValorUnitario());
 
                 producao.getInsumos().add(insumoProducao);

@@ -21,14 +21,25 @@ import java.util.List;
 public class ProducaoDTO {
 
     private Long id;
+
+    @NotBlank(message = "O nome da produção é obrigatório")
     private String nomeProducao;
+
     private LocalDate dataEntrada;
+
+    @Positive(message = "O tempo de plantio deve ser positivo")
     private int tempoPlantio;
+
+    @Positive(message = "A quantidade prevista deve ser positiva")
     private int quantidadePrevista;
+
     private StatusProducao status;
+
+    private ProdutoDTO produto;
 
     private List<InsumoDTOmid> insumos = new ArrayList<>();
 
+    // Construtor que recebe uma entidade Producao
     public ProducaoDTO(Producao entity) {
         id = entity.getId();
         nomeProducao = entity.getNomeProducao();
@@ -37,24 +48,21 @@ public class ProducaoDTO {
         quantidadePrevista = entity.getQuantidadePrevista();
         status = entity.getStatusProducao();
 
-        for (InsumoProducao insumoProducao : entity.getInsumos()) {
-            InsumoDTOmid insumoDTO = new InsumoDTOmid(insumoProducao.getInsumo().getId(), insumoProducao.getInsumo().getNome(), insumoProducao.getInsumo().getValorUnitario(), insumoProducao.getQuantidade(), insumoProducao.getValor());
-            insumos.add(insumoDTO);
+        // Mapeamento do produto associado
+        if (entity.getProduto() != null) {
+            this.produto = new ProdutoDTO(entity.getProduto());
         }
-    }
 
-    @NotBlank(message = "Campo requerido")
-    public String getNomeProducao() {
-        return nomeProducao;
-    }
-
-    @Positive(message = "Quantidade tem que ser positiva")
-    public int getTempoPlantio() {
-        return tempoPlantio;
-    }
-
-    @Positive(message = "Quantidade tem que ser positiva")
-    public int getQuantidadePrevista() {
-        return quantidadePrevista;
+        // Mapeamento dos insumos associados
+        for (InsumoProducao insumoProducao : entity.getInsumos()) {
+            InsumoDTOmid insumoDTO = new InsumoDTOmid(
+                    insumoProducao.getInsumo().getId(),
+                    insumoProducao.getInsumo().getNome(),
+                    insumoProducao.getInsumo().getValorUnitario(),
+                    insumoProducao.getQuantidade(),
+                    insumoProducao.getValor()
+            );
+            this.insumos.add(insumoDTO);
+        }
     }
 }

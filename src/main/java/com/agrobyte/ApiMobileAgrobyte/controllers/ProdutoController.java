@@ -1,9 +1,7 @@
 package com.agrobyte.ApiMobileAgrobyte.controllers;
 
-import com.agrobyte.ApiMobileAgrobyte.DTO.InsumoDTOfull;
-import com.agrobyte.ApiMobileAgrobyte.DTO.InsumoDTOmid;
-import com.agrobyte.ApiMobileAgrobyte.DTO.InsumoDTOmin;
-import com.agrobyte.ApiMobileAgrobyte.services.InsumoService;
+import com.agrobyte.ApiMobileAgrobyte.DTO.ProdutoDTOfull;
+import com.agrobyte.ApiMobileAgrobyte.services.ProdutoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,26 +13,26 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 
 @RestController
-@RequestMapping(value = "/insumo")
-public class InsumoController {
+@RequestMapping(value = "/produto")
+public class ProdutoController {
 
     @Autowired
-    private InsumoService service;
+    private ProdutoService service;
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<InsumoDTOfull> findById(@PathVariable Long id){
-        InsumoDTOfull dto = service.findById(id);
+    public ResponseEntity<ProdutoDTOfull> findById(@PathVariable Long id){
+        ProdutoDTOfull dto = service.findById(id);
         return ResponseEntity.ok(dto);
     }
 
     @GetMapping
-    public ResponseEntity<Page<InsumoDTOfull>> findAll(Pageable pageable){
-        Page<InsumoDTOfull> dto = service.findAll(pageable);
+    public ResponseEntity<Page<ProdutoDTOfull>> findAll(Pageable pageable){
+        Page<ProdutoDTOfull> dto = service.findAll(pageable);
         return ResponseEntity.ok(dto);
     }
 
     @PostMapping
-    public ResponseEntity<InsumoDTOfull> insert(@Valid @RequestBody InsumoDTOfull dto) {
+    public ResponseEntity<ProdutoDTOfull> insert(@Valid @RequestBody ProdutoDTOfull dto) {
         dto = service.insert(dto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(dto.getId()).toUri();
@@ -42,7 +40,7 @@ public class InsumoController {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<InsumoDTOfull> update(@PathVariable Long id, @Valid @RequestBody InsumoDTOfull dto){
+    public ResponseEntity<ProdutoDTOfull> update(@PathVariable Long id, @Valid @RequestBody ProdutoDTOfull dto){
         dto = service.update(id, dto);
         return ResponseEntity.ok(dto);
     }
