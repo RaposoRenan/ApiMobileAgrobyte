@@ -90,7 +90,9 @@ public class ProducaoService {
             producao.setStatusProducao(dto.getStatus());
 
             for (InsumoDTOmid insumoDTO : dto.getInsumos()) {
-                Insumo insumo = insumoRepository.getReferenceById(insumoDTO.getId());
+                Insumo insumo = insumoRepository.findById(insumoDTO.getId())
+                        .orElseThrow(() -> new ResourceNotFoundException("Insumo não encontrado com ID: " + insumoDTO.getId()));
+
                 InsumoProducao insumoProducao = new InsumoProducao(insumo, producao, insumoDTO.getQuantidade(), insumoDTO.getValorUnitario());
 
                 producao.getInsumos().add(insumoProducao);

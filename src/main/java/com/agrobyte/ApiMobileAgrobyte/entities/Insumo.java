@@ -33,7 +33,7 @@ public class Insumo {
         return insumos.stream().map(x -> x.getProducao()).toList();
     }
 
-    public void atualizarEstoque (Integer quantidade){
-        this.quantidadeEstoque -= quantidade;
+    public void atualizarEstoque(Integer quantidade) {
+        this.quantidadeEstoque = Math.max(this.quantidadeEstoque - quantidade, 0);
     }
 }

@@ -49,7 +49,8 @@ public class ColheitaService {
 
         Colheita colheita = new Colheita();
         colheita.setDataColheita(LocalDate.now());
-        colheita.setQntdColhida(producao.getQuantidadePrevista() - (dto.getPerdaDoenca() + dto.getPerdaErro()));
+        int qntdColhida = Math.max(producao.getQuantidadePrevista() - (dto.getPerdaDoenca() + dto.getPerdaErro()), 0);
+        colheita.setQntdColhida(qntdColhida);
         colheita.setPerdaDoenca(dto.getPerdaDoenca());
         colheita.setPerdaErro(dto.getPerdaErro());
         colheita.setProducao(producao);
