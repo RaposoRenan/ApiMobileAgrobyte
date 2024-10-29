@@ -1,6 +1,7 @@
 package com.agrobyte.ApiMobileAgrobyte.DTO;
 
 import com.agrobyte.ApiMobileAgrobyte.entities.Insumo;
+import com.agrobyte.ApiMobileAgrobyte.entities.Produto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,7 +13,7 @@ import java.time.LocalDate;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class InsumoDTOfull {
+public class ProdutoDTOfull {
 
     private Long id;
     private String nome;
@@ -20,7 +21,7 @@ public class InsumoDTOfull {
     private Integer quantidadeEstoque;
     private LocalDate dataValidade;
 
-    public InsumoDTOfull(Insumo entity){
+    public ProdutoDTOfull(Produto entity){
         id = entity.getId();
         nome = entity.getNome();
         valorUnitario = entity.getValorUnitario();
