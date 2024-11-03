@@ -16,7 +16,6 @@ import java.time.LocalDate;
 public class ProducaoDTOmin {
 
     private Long id;
-    private String nomeProducao;
     private LocalDate dataEntrada;
     private int tempoPlantio;
     private int quantidadePrevista;
@@ -24,7 +23,6 @@ public class ProducaoDTOmin {
 
     public ProducaoDTOmin(Producao entity) {
         id = entity.getId();
-        nomeProducao = entity.getNomeProducao();
         dataEntrada = entity.getDataEntrada();
         tempoPlantio = entity.getTempoPlantio();
         quantidadePrevista = entity.getQuantidadePrevista();

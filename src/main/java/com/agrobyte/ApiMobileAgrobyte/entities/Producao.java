@@ -26,8 +26,6 @@ public class Producao {
     @JoinColumn(name = "produto_id", nullable = true)
     private Produto produto;
 
-    private String nomeProducao;
-
     private LocalDate dataEntrada;
 
     private int tempoPlantio;

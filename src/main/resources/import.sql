@@ -10,16 +10,16 @@ INSERT INTO tb_insumo(nome, valor_unitario, quantidade_estoque, data_validade) V
 INSERT INTO tb_insumo(nome, valor_unitario, quantidade_estoque, data_validade) VALUES ('Pesticida', 70.50, 1000, '2025-10-17');
 INSERT INTO tb_insumo(nome, valor_unitario, quantidade_estoque, data_validade) VALUES ('Pesticida', 70.50, 1000, '2025-10-17');
 
-INSERT INTO tb_producao(nome_producao, data_entrada, tempo_plantio, status_producao, quantidade_prevista) VALUES ('Milho Safra', '2024-01-01', 90, 'PLANTIO', 100);
-INSERT INTO tb_producao(nome_producao, data_entrada, tempo_plantio, status_producao, quantidade_prevista) VALUES ('Soja Safra', '2024-02-01', 60, 'PLANTIO', 150);
-INSERT INTO tb_producao(nome_producao, data_entrada, tempo_plantio, status_producao, quantidade_prevista) VALUES ('Trigo Safra', '2024-03-01', 30, 'PLANTIO', 200);
-INSERT INTO tb_producao(nome_producao, data_entrada, tempo_plantio, status_producao, quantidade_prevista) VALUES ('Arroz Safra', '2024-04-01', 15, 'PLANTIO', 200);
-INSERT INTO tb_producao(nome_producao, data_entrada, tempo_plantio, status_producao, quantidade_prevista) VALUES ('Café Safra', '2024-05-01', 30, 'PLANTIO', 1500);
-INSERT INTO tb_producao(nome_producao, data_entrada, tempo_plantio, status_producao, quantidade_prevista) VALUES ('Feijão Safra', '2024-06-01', 60, 'PLANTIO', 150);
-INSERT INTO tb_producao(nome_producao, data_entrada, tempo_plantio, status_producao, quantidade_prevista) VALUES ('Cana-de-açúcar Safra', '2024-07-01', 160, 'PLANTIO', 220);
-INSERT INTO tb_producao(nome_producao, data_entrada, tempo_plantio, status_producao, quantidade_prevista) VALUES ('Batata Safra', '2024-08-01', 60, 'PLANTIO',200);
-INSERT INTO tb_producao(nome_producao, data_entrada, tempo_plantio, status_producao, quantidade_prevista) VALUES ('Tomate Safra', '2024-09-01', 45, 'PLANTIO', 200);
-INSERT INTO tb_producao(nome_producao, data_entrada, tempo_plantio, status_producao, quantidade_prevista) VALUES ('Alface Safra', '2024-10-01', 30, 'PLANTIO', 200);
+INSERT INTO tb_producao(data_entrada, tempo_plantio, status_producao, quantidade_prevista) VALUES ('2024-01-01', 90, 'PLANTIO', 100);
+INSERT INTO tb_producao(data_entrada, tempo_plantio, status_producao, quantidade_prevista) VALUES ('2024-02-01', 60, 'PLANTIO', 150);
+INSERT INTO tb_producao(data_entrada, tempo_plantio, status_producao, quantidade_prevista) VALUES ('2024-03-01', 30, 'PLANTIO', 200);
+INSERT INTO tb_producao(data_entrada, tempo_plantio, status_producao, quantidade_prevista) VALUES ('2024-04-01', 15, 'PLANTIO', 200);
+INSERT INTO tb_producao(data_entrada, tempo_plantio, status_producao, quantidade_prevista) VALUES ('2024-05-01', 30, 'PLANTIO', 1500);
+INSERT INTO tb_producao(data_entrada, tempo_plantio, status_producao, quantidade_prevista) VALUES ('2024-06-01', 60, 'PLANTIO', 150);
+INSERT INTO tb_producao(data_entrada, tempo_plantio, status_producao, quantidade_prevista) VALUES ('2024-07-01', 160, 'PLANTIO', 220);
+INSERT INTO tb_producao(data_entrada, tempo_plantio, status_producao, quantidade_prevista) VALUES ('2024-08-01', 60, 'PLANTIO',200);
+INSERT INTO tb_producao(data_entrada, tempo_plantio, status_producao, quantidade_prevista) VALUES ('2024-09-01', 45, 'PLANTIO', 200);
+INSERT INTO tb_producao(data_entrada, tempo_plantio, status_producao, quantidade_prevista) VALUES ('2024-10-01', 30, 'PLANTIO', 200);
 
 
 INSERT INTO tb_insumo_producao(insumo_id, producao_id, quantidade) VALUES (1, 1, 50);
