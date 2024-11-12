@@ -22,7 +22,7 @@ public class InsumoController {
     @Autowired
     private InsumoService service;
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_OPERATOR')")
     @GetMapping(value = "/{id}")
     public ResponseEntity<InsumoDTOfull> findById(@PathVariable Long id){
         InsumoDTOfull dto = service.findById(id);
