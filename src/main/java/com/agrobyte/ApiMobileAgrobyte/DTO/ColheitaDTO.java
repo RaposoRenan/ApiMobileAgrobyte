@@ -19,6 +19,7 @@ public class ColheitaDTO {
     private Integer qntdColhida;
     private Integer perdaDoenca;
     private Integer perdaErro;
+    private String nomeProduto; // Novo campo
 
     public ColheitaDTO(Colheita entity) {
         id = entity.getId();
@@ -26,5 +27,6 @@ public class ColheitaDTO {
         qntdColhida = entity.getQntdColhida();
         perdaDoenca = entity.getPerdaDoenca();
         perdaErro = entity.getPerdaErro();
+        nomeProduto = entity.getNomeProduto(); // Define o nome do produto
     }
 }

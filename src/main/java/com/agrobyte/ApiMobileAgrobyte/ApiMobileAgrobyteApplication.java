@@ -18,7 +18,7 @@ public class ApiMobileAgrobyteApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		System.out.println(passwordEncoder.encode("123456"));
+		System.out.println(passwordEncoder.encode("1"));
 
 		boolean result = passwordEncoder.matches("123456", "$2a$10$Omml9pexRdPud66HtbyBc.NuR2PGooZG0qYjqbeUc7ZYNiVithN22");
 

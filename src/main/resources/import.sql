@@ -40,6 +40,7 @@ INSERT INTO tb_produto(nome, valor_unitario, quantidade_estoque, data_validade) 
 
 INSERT INTO tb_user (name, email, password) VALUES ('Alex', 'alex@gmail.com', '$2a$10$Omml9pexRdPud66HtbyBc.NuR2PGooZG0qYjqbeUc7ZYNiVithN22')
 INSERT INTO tb_user (name, email, password) VALUES ('Maria', 'maria@gmail.com', '$2a$10$Omml9pexRdPud66HtbyBc.NuR2PGooZG0qYjqbeUc7ZYNiVithN22')
+INSERT INTO tb_user (name, email, password) VALUES ('Renan', '1', '$2a$10$/msoDTHSgK25oN9PPIggC.meyQ6QJbvLvBUs/wq3O9AuXwrsCptM6')
 
 INSERT INTO tb_role (authority) VALUES ('ROLE_OPERATOR')
 INSERT INTO tb_role (authority) VALUES ('ROLE_ADMIN')
@@ -47,3 +48,4 @@ INSERT INTO tb_role (authority) VALUES ('ROLE_ADMIN')
 INSERT INTO tb_user_role (user_id, role_id) VALUES (1, 1)
 INSERT INTO tb_user_role (user_id, role_id) VALUES (2, 1)
 INSERT INTO tb_user_role (user_id, role_id) VALUES (2, 2)
+INSERT INTO tb_user_role (user_id, role_id) VALUES (3, 2)

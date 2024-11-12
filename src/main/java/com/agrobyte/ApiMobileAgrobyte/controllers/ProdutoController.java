@@ -20,7 +20,7 @@ public class ProdutoController {
     @Autowired
     private ProdutoService service;
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_OPERATOR')")
     @GetMapping(value = "/{id}")
     public ResponseEntity<ProdutoDTOfull> findById(@PathVariable Long id){
         ProdutoDTOfull dto = service.findById(id);
