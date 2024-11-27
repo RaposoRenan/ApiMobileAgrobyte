@@ -22,9 +22,6 @@ public class ProducaoDTO {
 
     private Long id;
 
-    @NotBlank(message = "O nome da produção é obrigatório")
-    private String nomeProducao;
-
     private LocalDate dataEntrada;
 
     @Positive(message = "O tempo de plantio deve ser positivo")
@@ -42,7 +39,6 @@ public class ProducaoDTO {
     // Construtor que recebe uma entidade Producao
     public ProducaoDTO(Producao entity) {
         id = entity.getId();
-        nomeProducao = entity.getNomeProducao();
         dataEntrada = entity.getDataEntrada();
         tempoPlantio = entity.getTempoPlantio();
         quantidadePrevista = entity.getQuantidadePrevista();

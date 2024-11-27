@@ -30,14 +30,14 @@ public class ColheitaService {
     private ProdutoRepository produtoRepository;
 
     @Transactional(readOnly = true)
-    public ColheitaDTO findById(Long id){
+    public ColheitaDTO findById(Long id) {
         Colheita colheita = colheitaRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Recurso não encontrado"));
         return new ColheitaDTO(colheita);
     }
 
     @Transactional(readOnly = true)
-    public Page<ColheitaDTO> findAll(Pageable pageable){
+    public Page<ColheitaDTO> findAll(Pageable pageable) {
         Page<Colheita> result = colheitaRepository.findAll(pageable);
         return result.map(x -> new ColheitaDTO(x));
     }
@@ -55,16 +55,18 @@ public class ColheitaService {
         colheita.setPerdaErro(dto.getPerdaErro());
         colheita.setProducao(producao);
 
+        // Define o nome do produto
+        Produto produto = producao.getProduto();
+        if (produto != null) {
+            colheita.setNomeProduto(produto.getNome());
+            produto.setQuantidadeEstoque(produto.getQuantidadeEstoque() + colheita.getQntdColhida());
+            produtoRepository.save(produto);
+        }
+
         colheitaRepository.save(colheita);
 
         producao.setStatusProducao(StatusProducao.FINALIZADO);
         producao.setColheita(colheita);
-
-        Produto produto = producao.getProduto();
-        if (produto != null) {
-            produto.setQuantidadeEstoque(produto.getQuantidadeEstoque() + colheita.getQntdColhida());
-            produtoRepository.save(produto); // Salva o produto atualizado no repositório
-        }
 
         producaoRepository.save(producao);
         return new ColheitaDTO(colheita);

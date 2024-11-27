@@ -25,6 +25,9 @@ public class Colheita {
     private Integer perdaDoenca;
     private Integer perdaErro;
 
+    // Novo campo para o nome do produto
+    private String nomeProduto;
+
     @OneToOne
     @JoinColumn(name = "producao_id")
     private Producao producao;

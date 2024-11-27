@@ -60,7 +60,6 @@ public class ProducaoService {
                 .orElseThrow(() -> new ResourceNotFoundException("Produto não encontrado"));
 
         producao.setProduto(produto);
-        producao.setNomeProducao(dto.getNomeProducao());
         producao.setTempoPlantio(dto.getTempoPlantio());
         producao.setQuantidadePrevista(dto.getQuantidadePrevista());
         producao.setDataEntrada(LocalDate.now());
@@ -83,7 +82,6 @@ public class ProducaoService {
         try {
             Producao producao = producaoRepository.getReferenceById(id);
 
-            producao.setNomeProducao(dto.getNomeProducao());
             producao.setTempoPlantio(dto.getTempoPlantio());
             producao.setQuantidadePrevista(dto.getQuantidadePrevista());
             producao.setDataEntrada(dto.getDataEntrada());

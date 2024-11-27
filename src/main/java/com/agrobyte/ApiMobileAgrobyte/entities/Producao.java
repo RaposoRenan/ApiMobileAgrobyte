@@ -1,6 +1,5 @@
 package com.agrobyte.ApiMobileAgrobyte.entities;
 
-import com.agrobyte.ApiMobileAgrobyte.DTO.ProdutoDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,9 +8,7 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -28,8 +25,6 @@ public class Producao {
     @ManyToOne
     @JoinColumn(name = "produto_id", nullable = true)
     private Produto produto;
-
-    private String nomeProducao;
 
     private LocalDate dataEntrada;
 
